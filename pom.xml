@@ -36,6 +36,11 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources/</directory>
+            </resource>
+        </resources>
         <finalName>Diggaren_javalin</finalName>
         <plugins>
             <plugin>
