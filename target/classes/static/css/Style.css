@@ -75,17 +75,18 @@ nav ul li a:hover {
 }
 
 .dropdown-content a {
+    display: block;
     padding: 15px 52px;
     color: white;
     text-decoration: none;
-    display: block;
 }
 
 .dropdown-content a:hover {
     background-color: #18a148;
+    display: block;
 }
 
-nav ul li a:hover .dropdown-content {
+nav ul li:hover .dropdown-content {
     display: block;
 }
 
