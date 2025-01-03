@@ -1,0 +1,26 @@
+body {
+    margin: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1db954;
+    color: black;
+    padding: 10px 20px;
+}
+
+header h1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 60px;
+    font-weight: bolder;
+    margin: 0;
+}
+
+header h1 img {
+    height: 50px;
+}
