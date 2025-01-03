@@ -23,13 +23,12 @@ public class Index {
 
     public Handler index = ctx -> {
         try {
-            String htmlContent = loadHtmlFromResource("/index.html");
+            String htmlContent = loadHtmlFromResource("templates/homePage.html");
             ctx.contentType("text/html");
             ctx.result(htmlContent);
         }catch (Exception e) {
             ctx.status(404).result("File Not Found");
         }
-        ctx.result("Radiokanaler");
     };
 
     public Handler getP1 = ctx -> {
