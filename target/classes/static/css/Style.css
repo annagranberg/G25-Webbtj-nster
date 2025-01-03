@@ -34,7 +34,7 @@ header h2 {
 
 nav ul {
     list-style: none;
-    display: flex;
+    display: block;
 }
 
 nav ul li a {
@@ -86,7 +86,7 @@ nav ul li a:hover {
     display: block;
 }
 
-nav ul li:hover .dropdown-content {
+nav ul li a:hover .dropdown-content {
     display: block;
 }
 
