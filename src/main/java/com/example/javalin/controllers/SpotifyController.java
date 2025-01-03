@@ -9,10 +9,10 @@ import java.net.http.HttpResponse;
 
 
 public class SpotifyController {
-    private final String clientId = "clientid";
-    private final String clientSecret = "clientsecret";
+    private final String clientId = "DITTclientid";
+    private final String clientSecret = "DITTclientsecret";
     private final HttpClient httpClient = HttpClient.newHttpClient();
-    private String accessToken;
+    private String accessToken = clientId + ":" + clientSecret;
     private SpotifyService spotifyService;
 
     public SpotifyController(SpotifyService spotifyService) {
@@ -22,11 +22,10 @@ public class SpotifyController {
     private void getAccessToken() {
         try {
             String apiUrl = "https://accounts.spotify.com/api/token";
-            String credentials = clientId + ":" + clientSecret;
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(apiUrl))
-                    .header("Authorization", "Basic " + credentials)
+                    .header("Authorization", "Basic " + accessToken)
                     .POST(HttpRequest.BodyPublishers.ofString("grant_type=client_credentials"))
                     .build();
 
@@ -43,5 +42,15 @@ public class SpotifyController {
         }
     }
 
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
 
+    public String getClientId() {
+        return clientId;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
+    }
 }
