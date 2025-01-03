@@ -3,10 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <script src="/static/js/index.js" defer></script>
-
-  <title>Title</title>
+    <link rel="stylesheet" href="/static/css/Style.css">
+  <title>SR X SPOTIFY</title>
 </head>
 <body>
+<div class="header-container">
+    <header>
+        <h1>
+            <img src="/static/images/SR_logo.png" alt="SR logo">
+            X
+            <img src="/static/images/spotify_logo.png" alt="Spotify logo">
+        </h1>
+        <h2>Här kan du lyssna på Sveriges Radio och hitta låtarna enkelt via Spotify</h2>
+    </header>
+    <nav>
+        <ul>
+            <li>
+                <a href="/">Radiokanaler</a>
+                <div class="dropdown-content">
+                    <a href="/P1.html">P1</a>
+                    <a href="/P2.html">P2</a>
+                    <a href="/P3.html">P3</a>
+                    <a href="/P4.html">P4</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</div>
 
+<main>
+    <section id="radioBilder">
+        <p>
+            <img src="/static/images/P3img.jpg" alt="P3 kanalbild">
+        </p>
+    </section>
+
+    <div class="container">
+        <button id="player-button">Hämta och spela P3</button>
+        <audio id="P3-player" controls style="display: none;"></audio>
+
+        <div id="quiz-container">
+            <h2>Vad heter låten?</h2>
+            <div id="quiz-question"></div>
+            <form id="quiz-options"></form>
+            <button id="play-quiz">Spela Quiz</button>
+            <button id="submit-answer" style="display: none;">Skicka svar</button>
+            <div id="quiz-feedback"></div>
+        </div>
+    </div>
+</main>
 </body>
 </html>
