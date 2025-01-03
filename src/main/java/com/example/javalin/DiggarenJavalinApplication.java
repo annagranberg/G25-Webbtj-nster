@@ -2,7 +2,9 @@ package com.example.javalin;
 
 import com.example.javalin.controllers.Index;
 import com.example.javalin.controllers.SRController;
+import com.example.javalin.controllers.SpotifyController;
 import com.example.javalin.services.SRService;
+import com.example.javalin.services.SpotifyService;
 import io.javalin.Javalin;
 
 public class DiggarenJavalinApplication {
@@ -15,9 +17,14 @@ public class DiggarenJavalinApplication {
             config.staticFiles.add("static");
         }).start(5008); // Servern körs på denna porten (5008)
 
+        // Sveriges radio
         SRService srService = new SRService();
         SRController srController = new SRController(srService);
         Index indexController = new Index();
+
+        //Spotify
+        SpotifyService spotifyService = new SpotifyService();
+        SpotifyController spotifyController = new SpotifyController(spotifyService);
 
         // Lägger till endpoints
         app.get("/", indexController.index); // Root endpoint

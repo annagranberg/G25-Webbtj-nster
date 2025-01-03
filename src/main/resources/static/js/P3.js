@@ -18,7 +18,7 @@ document.getElementById("play-button").addEventListener("click", function() {
 });
 
 document.getElementById("play-quiz").addEventListener("click", function() {
-    // setInterval(fetchCurrentSong, 5000); // hämtar current song var 5:e sekund
+    //setInterval(fetchCurrentSong, 5000); // hämtar current song var 5:e sekund
     fetchCurrentSong();
     playQuiz.style.display = "none";
     submitAnswer.style.display = "block";

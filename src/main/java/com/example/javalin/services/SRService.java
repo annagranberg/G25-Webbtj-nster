@@ -10,7 +10,6 @@ public class SRService {
 
     public String fetchP3Data() {
         StringBuilder response = new StringBuilder();
-
         try {
 
             URL url = new URL(SR_API_URL);
