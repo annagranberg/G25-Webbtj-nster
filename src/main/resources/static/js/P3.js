@@ -1,4 +1,4 @@
-const apiUrl = "/api/P3";
+const apiURL =  "https://sverigesradio.se/topsy/direkt/srapi/164.mp3";
 const playlistApiUrl = "/api/P3/playlist";
 const audioElement = document.getElementById("P3-player");
 const playButton = document.getElementById("play-button");
@@ -9,7 +9,7 @@ let currentSongArtist = "";
 
 // Starta ljudströmmen
 document.getElementById("play-button").addEventListener("click", function () {
-    audioElement.src = apiUrl;
+    audioElement.src = apiURL;
     playButton.style.display = "none";
     audioElement.style.display = "block";
     audioElement

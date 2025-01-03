@@ -3,7 +3,7 @@ const audioElement = document.getElementById("P4-player");
 const playButton = document.getElementById("play-button");
 const spelLista = document.getElementById("playlist-button");
 
-document.getElementById("playlist-button").addEventListener("click", function () {
+document.getElementById("play-button").addEventListener("click", function () {
     audioElement.src = apiURL;
     playButton.style.display = "none";
     audioElement.style.display = "block";

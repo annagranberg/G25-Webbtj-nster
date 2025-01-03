@@ -1,11 +1,11 @@
-const apiUrl = "/api/P1";
+const apiURL =  "https://sverigesradio.se/topsy/direkt/srapi/132.mp3";
 const playlistApiUrl = "/api/playlist";
 const audioElement = document.getElementById("P1-player");
 const playButton = document.getElementById("play-button");
 const spelLista = document.getElementById("playlist-button");
 
 document.getElementById("play-button").addEventListener("click", function () {
-    audioElement.src = apiUrl;
+    audioElement.src = apiURL;
     playButton.style.display = "none";
     audioElement.style.display = "block";
     audioElement
