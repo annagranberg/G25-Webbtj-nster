@@ -73,5 +73,29 @@ async function startQuiz() {
             `;
         quizOptionsContainer.innerHTML += optionHTML;
     });
-            }
+}
 
+document.getElementById("submit-answer").addEventListener("click", function () {
+    const selectedOption = document.querySelector('input[name="quiz-option"]:checked');
+    const feedbackContainer = document.getElementById("quiz-feedback");
+
+    if (!selectedOption) {
+        feedbackContainer.textContent = "Välj ett alternativ innan du skickar in!";
+        return;
+    }
+
+    const correctAnswer = `${currentSongTitle} - ${currentSongArtist}`;
+    if (selectedOption.value === correctAnswer) {
+        feedbackContainer.textContent = "Rätt svar! Bra jobbat!";
+    } else {
+        feedbackContainer.textContent = `Fel svar. Rätt svar är: ${correctAnswer}`;
+    }
+});
+
+// Blanda alternativen
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
