@@ -24,3 +24,139 @@ header h1 {
 header h1 img {
     height: 50px;
 }
+
+header h2 {
+    margin: 10px;
+    font-size: 16px;
+    font-weight: normal;
+    color: black;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: black;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: #18a148;
+}
+
+#radioBilder p {
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+}
+
+#omOss {
+    margin: 55px;
+    font-size: 20px;
+    color: black;
+    text-align: left;
+    line-height: 1.5;
+    font-weight: normal;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #444;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    padding: 15px 52px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #18a148;
+}
+
+nav ul li a:hover .dropdown-content {
+    display: block;
+}
+
+#play-button {
+    background-color: #1db954;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    position: relative;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#play-button {
+    background-color: #1db954;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#quiz-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+
+#quiz-options input[type="radio"] {
+    margin-right: 10px;
+}
+
+#quiz-question {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #555;
+}
+
+#quiz-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+}
+
+#play-quiz, #submit-answer {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #18a148;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
