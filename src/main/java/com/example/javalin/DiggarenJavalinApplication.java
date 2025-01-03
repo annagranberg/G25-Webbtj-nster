@@ -12,6 +12,7 @@ public class DiggarenJavalinApplication {
             config.plugins.enableCors(cors -> {
                 cors.add(it -> it.anyHost());
             });
+            config.staticFiles.add("static");
         }).start(5008); // Servern körs på denna porten (5008)
 
         SRService srService = new SRService();

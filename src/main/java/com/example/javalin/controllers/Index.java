@@ -43,14 +43,32 @@ public class Index {
     };
 
     public Handler getP2 = ctx -> {
-        ctx.result("P2");
+        try{
+            String htmlContent = loadHtmlFromResource("templates/P2.html");
+            ctx.contentType("text/html");
+            ctx.result(htmlContent);
+        }catch (IOException e) {
+            ctx.status(404).result("File not found");
+        }
     };
 
     public Handler getP3 = ctx -> {
-        ctx.result("P3");
+        try{
+            String htmlContent = loadHtmlFromResource("templates/P3.html");
+            ctx.contentType("text/html");
+            ctx.result(htmlContent);
+        } catch (IOException e) {
+            ctx.status(404).result("File not found");
+        }
     };
 
     public Handler getP4 = ctx -> {
-        ctx.result("P4");
+        try{
+            String htmlContent = loadHtmlFromResource("templates/P4.html");
+            ctx.contentType("text/html");
+            ctx.result(htmlContent);
+        } catch (IOException e) {
+            ctx.status(404).result("File not found");
+        }
     };
 }
