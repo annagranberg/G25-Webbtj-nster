@@ -34,7 +34,11 @@ header h2 {
 
 nav ul {
     list-style: none;
-    display: block;
+    padding: 0;
+    margin: 0;
+}
+nav ul li{
+    position: relative;
 }
 
 nav ul li a {
@@ -44,24 +48,11 @@ nav ul li a {
     text-decoration: none;
 }
 
-nav ul li a:hover {
-    background-color: #18a148;
-}
-
 #radioBilder p {
     font-size: 20px;
     color: black;
     text-align: center;
     font-weight: bold;
-}
-
-#omOss {
-    margin: 55px;
-    font-size: 20px;
-    color: black;
-    text-align: left;
-    line-height: 1.5;
-    font-weight: normal;
 }
 
 .dropdown-content {
@@ -74,8 +65,11 @@ nav ul li a:hover {
     z-index: 1;
 }
 
-.dropdown-content a {
+nav ul li:hover .dropdown-content {
     display: block;
+}
+
+.dropdown-content a {
     padding: 15px 52px;
     color: white;
     text-decoration: none;
@@ -83,11 +77,6 @@ nav ul li a:hover {
 
 .dropdown-content a:hover {
     background-color: #18a148;
-    display: block;
-}
-
-nav ul li a:hover .dropdown-content {
-    display: block;
 }
 
 #play-button {
