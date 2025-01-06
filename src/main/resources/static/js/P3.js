@@ -3,6 +3,7 @@ const audioElement = document.getElementById("P3-player");
 const playButton = document.getElementById("play-button");
 const playQuiz = document.getElementById("play-quiz");
 const submitAnswer = document.getElementById("submit-answer");
+const noQuiz = document.getElementById("no-Quiz");
 const clientId = "";
 const clientSecret = "";
 let currentSongTitle = "";
@@ -23,6 +24,68 @@ document.getElementById("play-quiz").addEventListener("click", function() {
     playQuiz.style.display = "none";
     submitAnswer.style.display = "block";
 });
+
+// ny metod för att hämta SR låtlista via vårt egna API
+document.getElementById("no-Quiz").addEventListener("click", function () {
+    console.log("Knappen klickades");
+    playQuiz.style.display = "none";
+    document.getElementById("quiz-container").style.display = "none";
+
+    fetch("http://localhost:5008/P3PlayList")
+        .then(response => response.text()) // Hämta XML som text
+        .then(data => {
+            console.log("Raw response: " + data);
+
+            // Parsar XML-String
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(data, "application/xml"); // Skapa xmlDoc
+
+            // Kontrollerar så att xmlDoc är korrekt
+            if (xmlDoc) {
+                displayPlaylist(xmlDoc); // Skicka xmlDoc till displayPlaylist
+            } else {
+                console.error("Kunde inte parsa XML.");
+            }
+        })
+        .catch(error => {
+            console.error("Det gick inte att hämta låtlista: " + error);
+        });
+});
+
+function displayPlaylist(xmlDoc) {
+    const playListContainer = document.getElementById("playList-container");
+    playListContainer.innerHTML = ''; // Töm container
+
+    console.log("Vi är i displayPlaylist");
+
+    // Hämta den nuvarande låten från XML
+    const currentSongElement = xmlDoc.getElementsByTagName("song")[0];
+    if (currentSongElement) {
+        const currentSongTitle = currentSongElement.getElementsByTagName("title")[0]?.textContent || "Okänd titel";
+        const currentSongArtist = currentSongElement.getElementsByTagName("artist")[0]?.textContent || "Okänd artist";
+
+        // Skapar HTML-element för att visa den aktuella låten
+        const currentSongHTML = document.createElement("p");
+        currentSongHTML.textContent = `Nuvarande låt: ${currentSongTitle} av ${currentSongArtist}`;
+        playListContainer.appendChild(currentSongHTML);
+    } else {
+        console.error("Kunde inte hitta information om den aktuella låten.");
+    }
+
+    // Hämta den föregående låten från XML
+    const previousSongElement = xmlDoc.getElementsByTagName("previoussong")[0];
+    if (previousSongElement) {
+        const previousSongTitle = previousSongElement.getElementsByTagName("title")[0]?.textContent || "Okänd titel";
+        const previousSongArtist = previousSongElement.getElementsByTagName("artist")[0]?.textContent || "Okänd artist";
+
+        // Skapa HTML-element för att visa den föregående låten
+        const previousSongHTML = document.createElement("p");
+        previousSongHTML.textContent = `Föregående låt: ${previousSongTitle} av ${previousSongArtist}`;
+        playListContainer.appendChild(previousSongHTML);
+    } else {
+        console.error("Kunde inte hitta information om den föregående låten.");
+    }
+}
 
 async function fetchCurrentSong() {
     try {

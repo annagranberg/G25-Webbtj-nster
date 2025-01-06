@@ -12,10 +12,9 @@ public class SRController {
         this.srService = srService;
     }
 
-
     // Endpoint för att hämta data från P3
-    public Handler getP3Data = ctx -> {
-        String p3Data = srService.fetchP3Data(); // Hämtar data från service-klassen
-        ctx.result(p3Data);
+    public Handler getP3PlayList = ctx -> {
+        String currentSong = srService.fetchP3PlayList(); // Hämtar data från service-klassen
+        ctx.result(currentSong);
     };
 }

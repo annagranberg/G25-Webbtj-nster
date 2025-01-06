@@ -6,13 +6,12 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class SRService {
-    private final String SR_API_URL = "https://api.sr.se/api/v2/channels?name=p3&format=json";
+    private final String P3_LÅTLISTA = "https://api.sr.se/api/v2/playlists/rightnow?channelid=164";
 
-    public String fetchP3Data() {
+    public String fetchP3PlayList() {
         StringBuilder response = new StringBuilder();
         try {
-
-            URL url = new URL(SR_API_URL);
+            URL url = new URL(P3_LÅTLISTA);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
@@ -23,6 +22,7 @@ public class SRService {
 
                 while (scanner.hasNext()) {
                     response.append(scanner.nextLine());
+
                 }
                 scanner.close();
             } else {
