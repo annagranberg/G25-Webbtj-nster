@@ -29,7 +29,7 @@ public class SRService {
             response.append("Ett fel inträffade vid inhämtning av data: ").append(e.getMessage());
         }
 
-        return response.toString();
+        return response.toString(); // returnerar svaret i XML som går till newP3
     }
 }
 

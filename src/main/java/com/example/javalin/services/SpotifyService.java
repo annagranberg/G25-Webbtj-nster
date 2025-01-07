@@ -51,13 +51,13 @@ public class SpotifyService {
         }
 
         try {
-            // Extraherar titel och artist från Sveriges Radio JSON-svaret
+            // Extraherar titel och artist från Sveriges Radio svaret
             JSONObject srJson = new JSONObject(srResponse);
             String trackTitle = srJson.getJSONObject("playlist").getJSONObject("song").getString("title");
             String artistName = srJson.getJSONObject("playlist").getJSONObject("song").getString("artist");
 
             // Bygger Spotify API-URL med den extraherade informationen
-            String url = String.format("https://api.spotify.com/v1/recommendations?seed_tracks=%s&seed_artists=%s&limit=5", trackTitle, artistName);
+            String url = String.format("https://api.spotify.com/v1/search?q=artist:${encodeURIComponent(currentSongArtist)}&type=track&limit=10", trackTitle, artistName);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Authorization", "Bearer " + accessToken)
@@ -75,7 +75,6 @@ public class SpotifyService {
             return List.of(); // Returnerar en tom lista om något går fel
         }
     }
-
 
     // Parsar rekommendationerna från JSON-svaret
     private List<String> parseRecommendations(String responseBody) {

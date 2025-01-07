@@ -26,4 +26,8 @@ public class SRController {
         //String[][] similarSongs = spotifyController.getSpotifyService().fetchSpotifyRecommendations(currentSong.getTitle(), currentSong.getArtist());
         ctx.result(currentSong); //@Todo: ta reda på hur listan med låtar ska returneras på rätt sätt.
     };
+
+    public SRService getSrService() {
+        return srService;
+    }
 }

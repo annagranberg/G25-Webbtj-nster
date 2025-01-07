@@ -13,10 +13,11 @@ document.getElementById("play-button").addEventListener("click", function() {
         .catch(error => console.error("Fel vid uppspelning:", error));
 });
 
+// När man vill spela quiz klickas denna knapp
 document.getElementById("play-quiz").addEventListener("click", function () {
     console.log("Play quiz knappen klickades");
 
-    fetch("http://localhost:5008/P3SongQuiz")
+    fetch("http://localhost:5008/P3SongQuiz") // vi hämtar vår egna endpoint här, där vi får svar från SRservice
         .then(response => {
             if (!response.ok) {
                 throw new Error("Något gick fel med förfrågan. Statuskod: " + response.status);
@@ -38,7 +39,7 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
     playQuiz.style.display = "none";
     document.getElementById("quiz-container").style.display = "none";
 
-    fetch("http://localhost:5008/P3PlayList")
+    fetch("http://localhost:5008/P3PlayList")// vi hämtar vår egna endpoint här, där vi får svar från SRservice
         .then(response => response.text())
         .then(data => {
             console.log("Raw response: " + data);
@@ -49,7 +50,7 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
 
             // Kontrollerar så att xmlDoc är korrekt
             if (xmlDoc) {
-                displayPlaylist(xmlDoc); // Skicka xmlDoc till displayPlaylist
+                displayPlaylist(xmlDoc); // Skicka xmlDoc till displayPlaylist för att visa på hemsidan
             } else {
                 console.error("Kunde inte parsa XML.");
             }
@@ -59,6 +60,7 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
         });
 });
 
+// Metod för att visa låtarna som spelas ifall man inte vill spela quiz
 function displayPlaylist(xmlDoc) {
     const playListContainer = document.getElementById("playList-container");
     playListContainer.innerHTML = ''; // Töm container
