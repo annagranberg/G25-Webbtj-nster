@@ -4,9 +4,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-import org.json.JSONObject;
-import org.json.XML;
-
 public class SRService {
     private final String P3_LÅTLISTA = "https://api.sr.se/api/v2/playlists/rightnow?channelid=164";
 
@@ -25,17 +22,6 @@ public class SRService {
                     response.append(scanner.nextLine());
                 }
                 scanner.close();
-
-                // Konvertera den råa XML-strängen till JSON
-                JSONObject jsonResponse = XML.toJSONObject(response.toString());
-
-                String title = jsonResponse.getJSONObject("playlist")
-                        .getJSONObject("previoussong")
-                        .getString("title");
-                String artist = jsonResponse.getJSONObject("playlist")
-                        .getJSONObject("previoussong")
-                        .getString("artist");
-
             } else {
                 response.append("Gick inte att hämta data. Response code: ").append(responseCode);
             }

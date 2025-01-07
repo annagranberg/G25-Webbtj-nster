@@ -77,7 +77,7 @@ function displayPlaylist(xmlDoc) {
         playListContainer.appendChild(currentSongHTML);
     } else {
         const currentSongHtml = document.createElement("p");
-        currentSongHTML.textContent = 'Det spelas ingen låt just nu';
+        currentSongHtml.textContent = 'Det spelas ingen låt just nu';
         playListContainer.appendChild(currentSongHtml);
         console.error("Kunde inte hitta information om den aktuella låten.");
     }
