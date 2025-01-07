@@ -48,7 +48,7 @@ public class DiggarenJavalinApplication {
        // app.get("/P3SpotifySongs", spotifyController.getSpotifyService().getRecommendations(srService.fetchCurrentSong()));
         app.get("/P3SpotifySongs", ctx -> {
             // Hämta den aktuella låtlistan från Sveriges Radio
-            JSONObject srResponse = srService.fetchCurrentSong();
+            String srResponse = srService.fetchCurrentSong("164");
             ctx.json(srResponse);
         });
 
