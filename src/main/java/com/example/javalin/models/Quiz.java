@@ -1,29 +1,27 @@
 package com.example.javalin.models;
 
-import java.util.List;
-
 public class Quiz {
-    private Track correctAnswer;
-    private List<Track> options;
+    private CurrentSong correctAnswer;
+    private String[][] options;
 
-    public Quiz(Track correctAnswer, List<Track> options) {
+    public Quiz(CurrentSong correctAnswer, String[][] options) {
         this.correctAnswer = correctAnswer;
         this.options = options;
     }
 
-    public Track getCorrectAnswer() {
+    public CurrentSong getCorrectAnswer() {
         return correctAnswer;
     }
 
-    public void setCorrectAnswer(Track correctAnswer) {
+    public void setCorrectAnswer(CurrentSong correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
 
-    public List<Track> getOptions() {
+    public String[][] getOptions() {
         return options;
     }
 
-    public void setOptions(List<Track> options) {
+    public void setOptions(String[][] options) {
         this.options = options;
     }
 }
