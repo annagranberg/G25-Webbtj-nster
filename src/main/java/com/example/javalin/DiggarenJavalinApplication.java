@@ -44,7 +44,7 @@ public class DiggarenJavalinApplication {
             String srResponse = srService.fetchCurrentSong();
 
             // Hämta Spotify-rekommendationer baserat på Sveriges Radio-låten
-            List<String> recommendations = spotifyController.getSpotifyService().getRecommendations(srResponse);
+            List<String> recommendations = spotifyController.getSpotifyService().getSimilarSongs(srResponse);
 
             // Skicka tillbaka rekommendationerna som ett JSON-svar
             ctx.json(recommendations);

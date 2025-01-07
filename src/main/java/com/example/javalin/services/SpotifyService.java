@@ -45,7 +45,7 @@ public class SpotifyService {
     }
 
     // Hämtar rekommendationer från Spotify baserat på låttitel och artist från SR
-    public List<String> getRecommendations(String srResponse) {
+    public List<String> getSimilarSongs(String srResponse) {
         if (accessToken == null) {
             accessToken = getAccessToken(); // Hämtar token om det inte finns
         }

@@ -76,6 +76,9 @@ function displayPlaylist(xmlDoc) {
         currentSongHTML.textContent = `Nuvarande låt: ${currentSongTitle} av ${currentSongArtist}`;
         playListContainer.appendChild(currentSongHTML);
     } else {
+        const currentSongHtml = document.createElement("p");
+        currentSongHTML.textContent = 'Det spelas ingen låt just nu';
+        playListContainer.appendChild(currentSongHtml);
         console.error("Kunde inte hitta information om den aktuella låten.");
     }
 
@@ -111,7 +114,7 @@ async function startQuiz(currentSong) {
             body: JSON.stringify(quizData) // Konvertera data till JSON och skicka
         });
 
-        if (response.ok) {
+        /*if (response.ok) {
             const quizResult = await response.json();
             console.log("Quizresultat:", quizResult);
 
@@ -119,7 +122,7 @@ async function startQuiz(currentSong) {
             displayQuizOptions(quizResult);
         } else {
             console.error("Fel vid att skicka data till backend:", response.status);
-        }
+        }*/
     } catch (error) {
         console.error("Det gick inte att skicka förfrågan:", error);
     }

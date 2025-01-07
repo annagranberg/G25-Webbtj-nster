@@ -1,21 +1,19 @@
 package com.example.javalin.models;
 
-import java.util.List;
-
 public class Quiz {
-    private String[][] correctAnswer;
+    private CurrentSong correctAnswer;
     private String[][] options;
 
-    public Quiz(String[][] correctAnswer, String[][] options) {
+    public Quiz(CurrentSong correctAnswer, String[][] options) {
         this.correctAnswer = correctAnswer;
         this.options = options;
     }
 
-    public String[][] getCorrectAnswer() {
+    public CurrentSong getCorrectAnswer() {
         return correctAnswer;
     }
 
-    public void setCorrectAnswer(String[][] correctAnswer) {
+    public void setCorrectAnswer(CurrentSong correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
 
