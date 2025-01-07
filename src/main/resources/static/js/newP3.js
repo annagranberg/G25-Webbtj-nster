@@ -100,46 +100,42 @@ function displayPlaylist(xmlDoc) {
 async function startQuiz(currentSong) {
     console.log("vi är i start quiz!!")
 
-    const quizData = {
-        title: currentSong.title,
-        artist: currentSong.artist
-    };
+    const quizDataXML = `
+            <quizData>
+            <title>${currentSong.title}</title>
+            <title>${currentSong.artist}</title>
+            </quizData>`;
+
 
     try {
         const response = await fetch("http://localhost:5008/startQuiz", {
             method: "POST",
             headers: {
-                "Content type" : "application/json"
+                "Content-Type" : "application/xml"
             },
-            body: JSON.stringify(quizData)
+            body: quizDataXML
         });
 
-        if(!response.ok){
+        const responseText = await response.text();
+        console.log(responseText);
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(responseText, "application/xml");
+
+        if(!response.ok) {
             throw new Error("Något gick fel... " + response.status);
         }
-        /*
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Något gick fel med förfrågan. Statuskod: " + response.status);
-                }
-                return response.text();
-            })
-            .then(data => {
-                console.log("Mottagen data:", data);
-            })
-            .catch(error => {
-                console.error("Det gick inte att hämta data:", error);
-            });
 
-        /*if (response.ok) {
-            const quizResult = await response.json();
-            console.log("Quizresultat:", quizResult);
+        const rootNode = xmlDoc.querySelector("sr");
+        if(!rootNode){
+            throw new Error("Root node sr not found");
+        }
 
-            // Gör något med resultatet från backend (t.ex. visa alternativ för quizet)
-            displayQuizOptions(quizResult);
-        } else {
-            console.error("Fel vid att skicka data till backend:", response.status);
-        }*/
+        const playlist = xmlDoc.querySelector("playlist");
+        if(!playlist){
+            throw new Error("JSONObject [playlist] not found")
+        }
+
+        console.log("mottagen data: " + xmlDoc);
     } catch (error) {
         console.error("Det gick inte att skicka förfrågan:", error);
     }

@@ -9,6 +9,8 @@ import com.example.javalin.services.SRService;
 import com.example.javalin.services.SpotifyService;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
+import org.json.JSONObject;
+import org.json.XML;
 
 import java.util.List;
 
@@ -46,16 +48,11 @@ public class DiggarenJavalinApplication {
        // app.get("/P3SpotifySongs", spotifyController.getSpotifyService().getRecommendations(srService.fetchCurrentSong()));
         app.get("/P3SpotifySongs", ctx -> {
             // Hämta den aktuella låtlistan från Sveriges Radio
-            String srResponse = srService.fetchCurrentSong();
-
-            // Hämta Spotify-rekommendationer baserat på Sveriges Radio-låten
-            List<String> recommendations = spotifyController.getSpotifyService().getSimilarSongs(srResponse);
-
-            // Skicka tillbaka rekommendationerna som ett JSON-svar
-            ctx.json(recommendations);
+            JSONObject srResponse = srService.fetchCurrentSong();
+            ctx.json(srResponse);
         });
 
         // @todo: skapa endpoint för att starta quiz.
-        app.get("/startQuiz", quizController.getStartQuiz);
+        app.post("/startQuiz", quizController.getStartQuiz);
     }
 }
