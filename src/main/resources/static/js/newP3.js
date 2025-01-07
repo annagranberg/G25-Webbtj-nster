@@ -116,7 +116,7 @@ async function startQuiz(currentSong) {
             body: JSON.stringify(quizData) // Konvertera data till JSON och skicka
         });
 
-        /*if (response.ok) {
+        if (response.ok) {
             const quizResult = await response.json();
             console.log("Quizresultat:", quizResult);
 
@@ -124,8 +124,17 @@ async function startQuiz(currentSong) {
             displayQuizOptions(quizResult);
         } else {
             console.error("Fel vid att skicka data till backend:", response.status);
-        }*/
+        }
     } catch (error) {
         console.error("Det gick inte att skicka förfrågan:", error);
     }
 }
+
+async function displayQuizOptions(quizResult){
+
+}
+
+document.getElementById("submit-answer").addEventListener("click", function(){
+    submitAnswer.style.display = "none";
+
+});
