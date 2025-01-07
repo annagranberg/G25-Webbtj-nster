@@ -97,7 +97,6 @@ async function startQuiz(currentSong) {
             <title>${currentSong.artist}</title>
             </quizData>`;
 
-
     try {
         const response = await fetch("http://localhost:5008/startQuiz", {
             method: "POST",
@@ -107,26 +106,14 @@ async function startQuiz(currentSong) {
             body: quizDataXML
         });
 
-        const responseText = await response.text();
+        const responseText = await response.json();
         console.log(responseText);
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(responseText, "application/xml");
 
         if(!response.ok) {
             throw new Error("Något gick fel... " + response.status);
         }
 
-        const rootNode = xmlDoc.querySelector("sr");
-        if(!rootNode){
-            throw new Error("Root node sr not found");
-        }
-
-        const playlist = xmlDoc.querySelector("playlist");
-        if(!playlist){
-            throw new Error("JSONObject [playlist] not found")
-        }
-
-        console.log("mottagen data: " + xmlDoc);
+        console.log("mottagen data: " + responseText);
     } catch (error) {
         console.error("Det gick inte att skicka förfrågan:", error);
     }

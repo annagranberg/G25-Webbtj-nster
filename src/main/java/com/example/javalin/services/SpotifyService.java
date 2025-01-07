@@ -62,7 +62,7 @@ public class SpotifyService {
             String encodedArtistName = URLEncoder.encode(artistName, StandardCharsets.UTF_8);
 
             // Bygger Spotify API-URL med den extraherade informationen
-            String url = String.format("https://api.spotify.com/v1/search?q=track:%s+artist:%s&type=track&limit=2", trackTitle, artistName);
+            String url = String.format("https://api.spotify.com/v1/search?q=track:%s+artist:%s&type=track&limit=2", encodedTrackTitle, encodedArtistName);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
@@ -72,7 +72,6 @@ public class SpotifyService {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 200) {
-                System.out.println(response.body());
                 return parseRecommendations(response.body());
             } else {
                 throw new Exception("Spotify API-förfrågan misslyckades med statuskod: " + response.statusCode());
@@ -86,11 +85,13 @@ public class SpotifyService {
 
     // Parsar rekommendationerna från JSON-svaret
     private ArrayList<String> parseRecommendations(String responseBody) {
+        //System.out.println(responseBody);
         ArrayList<String> recommendations = new ArrayList<>();
 
         try {
             JSONObject json = new JSONObject(responseBody);
-            JSONArray tracks = json.getJSONArray("tracks");
+            JSONObject tracksObject = json.getJSONObject("tracks");
+            JSONArray tracks = tracksObject.getJSONArray("items");
 
             for (int i = 0; i < tracks.length(); i++) {
                 JSONObject track = tracks.getJSONObject(i);
