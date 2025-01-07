@@ -38,7 +38,7 @@ public class QuizController {
             JSONObject song = playlist.getJSONObject("song");
 
         if (song != null){
-            String currentSongText  = song.getString("title") + " - " + song.getString("artist"); 
+            String currentSongText  = song.getString("title") + " - " + song.getString("artist");
             if (currentSongText != null && !currentSongText.isEmpty()) {
                 Answer correctAnswer = new Answer(currentSongText, true);
                 quiz.addAnswer(correctAnswer);

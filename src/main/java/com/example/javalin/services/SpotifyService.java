@@ -13,7 +13,7 @@ import java.util.*;
 
 public class SpotifyService {
     private final String clientId = "0dfbaadbec2b44ccbd420b22d5141ff3";
-    private final String clientSecret = "744cbec7d7f446afb9e0ec8784fa0b44";
+    private final String clientSecret = "ebf1324bba0f464e80727e68f91549ce";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     private String accessToken;
@@ -46,7 +46,7 @@ public class SpotifyService {
         }
     }
 
-    // Hämtar rekommendationer från Spotify baserat på låttitel och artist från SR
+    // Hämtar liknande låtar från Spotify baserat på låttitel och artist från SR
     public ArrayList<String> getSimilarSongs(String srResponse) {
         if (accessToken == null) {
             accessToken = getAccessToken(); // Hämtar token om det inte finns
@@ -82,8 +82,7 @@ public class SpotifyService {
         }
     }
 
-
-    // Parsar rekommendationerna från JSON-svaret
+    // Parsar rekommendationerna från JSON-svaret till en arraylist
     private ArrayList<String> parseRecommendations(String responseBody) {
         //System.out.println(responseBody);
         ArrayList<String> recommendations = new ArrayList<>();

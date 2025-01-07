@@ -25,4 +25,9 @@ public class CurrentSong {
     public void setArtist(String artist) {
         this.artist = artist;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Song {title: '%s', artist: '%s'}", title, artist);
+    }
 }

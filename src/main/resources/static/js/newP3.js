@@ -15,21 +15,8 @@ document.getElementById("play-button").addEventListener("click", function() {
 
 document.getElementById("play-quiz").addEventListener("click", function () {
     console.log("Play quiz knappen klickades");
+    startQuiz();
 
-    fetch("http://localhost:5008/P3SongQuiz")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Något gick fel med förfrågan. Statuskod: " + response.status);
-            }
-            return response.text();
-        })
-        .then(data => {
-            console.log("Mottagen data:", data);
-            startQuiz(data);
-        })
-        .catch(error => {
-            console.error("Det gick inte att hämta data:", error);
-        });
 });
 
 // ny metod för att hämta SR låtlista via vårt egna API
@@ -88,29 +75,24 @@ function displayPlaylist(data) {
     }
 }
 
-async function startQuiz(currentSong) {
-    console.log("vi är i start quiz!!")
-
-    const quizData = `
-     <quizData>
-         <title>${currentSong.title}</title>
-         <artist>${currentSong.artist}</artist>
-     </quizData>`;
+async function startQuiz() {
+    console.log("vi är i start quiz!!");
+    playQuiz.style.display = "none";
+    submitAnswer.style.display = "block";
 
     try {
         const response = await fetch("http://localhost:5008/startQuiz", {
             method: "POST",
             headers: {
-                "Content-Type" : "application/json"
-            },
-            body: quizData
+                "Content-Type": "application/json"
+            }
         });
 
         const responseText = await response.json();
-        console.log(responseText);
+        console.log("Mottagen API-data:", responseText);
 
-        if(!response.ok) {
-            throw new Error("Något gick fel... " + response.status);
+        if (!responseText) {
+            throw new Error("Något gick fel... Inget svar från servern.");
         }
 
         const quizQuestion = responseText.Question;
@@ -119,18 +101,20 @@ async function startQuiz(currentSong) {
         document.getElementById("quiz-question").textContent = quizQuestion;
 
         const optionsContainer = document.getElementById("quiz-options");
-        optionsContainer.innerHTML = ""; // tar bort tidigare alternativ
+        optionsContainer.innerHTML = "";
 
-        answers.forEach((options, index ) => {
+        answers.forEach((answer) => {
+            let song = answer.TEXT;
+
             const optionHTML = `
-            <label>
-                <input type="radio" name="quiz-option" value="${options.title} - ${options.artist}">
-                ${options.title} - ${options.artist}
-            </label><br>
-        `;
+                <label>
+                    <input type="radio" name="quiz-option" value="${song}">
+                        ${song}
+                </label><br>
+                `;
             optionsContainer.innerHTML += optionHTML;
-
         });
+
     } catch (error) {
         console.error("Det gick inte att skicka förfrågan:", error);
     }
