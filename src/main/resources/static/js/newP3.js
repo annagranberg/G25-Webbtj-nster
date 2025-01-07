@@ -39,17 +39,12 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
     document.getElementById("quiz-container").style.display = "none";
 
     fetch("http://localhost:5008/P3PlayList")
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
             console.log("Raw response: " + data);
-
-            // Parsar XML-String
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(data, "application/xml"); // Skapa xmlDoc
-
             // Kontrollerar så att xmlDoc är korrekt
-            if (xmlDoc) {
-                displayPlaylist(xmlDoc); // Skicka xmlDoc till displayPlaylist
+            if (data && data.playlist) {
+                displayPlaylist(data); // Skicka xmlDoc till displayPlaylist
             } else {
                 console.error("Kunde inte parsa XML.");
             }
@@ -59,41 +54,37 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
         });
 });
 
-function displayPlaylist(xmlDoc) {
+function displayPlaylist(data) {
     const playListContainer = document.getElementById("playList-container");
     playListContainer.innerHTML = ''; // Töm container
 
     console.log("Vi är i displayPlaylist");
 
-    // Hämta den nuvarande låten från XML
-    const currentSongElement = xmlDoc.getElementsByTagName("song")[0];
-    if (currentSongElement) {
-        const currentSongTitle = currentSongElement.getElementsByTagName("title")[0]?.textContent || "Okänd titel";
-        const currentSongArtist = currentSongElement.getElementsByTagName("artist")[0]?.textContent || "Okänd artist";
+    if (data && data.playlist) {
+        const playlist = data.playlist;
 
-        // Skapar HTML-element för att visa den aktuella låten
+        const previousSong = {
+            artist: playlist.previoussong.artist || "Okänd artist",
+            title: playlist.previoussong.title || "Okänd titel"
+        }
+        const currentSong = {
+            artist: playlist.song.artist || "Okänd artist",
+            title: playlist.song.title || "Okänd titel"
+        }
+
         const currentSongHTML = document.createElement("p");
-        currentSongHTML.textContent = `Nuvarande låt: ${currentSongTitle} av ${currentSongArtist}`;
+        currentSongHTML.textContent = `Nuvarande låt: ${currentSong.title} av ${currentSong.artist}`;
         playListContainer.appendChild(currentSongHTML);
+
+        const previousSongHTML = document.createElement("p");
+        previousSongHTML.textContent = `Föregående låt: ${previousSong.title} av ${previousSong.artist}`;
+        playListContainer.appendChild(previousSongHTML);
+
     } else {
         const currentSongHtml = document.createElement("p");
-        currentSongHTML.textContent = 'Det spelas ingen låt just nu';
+        currentSongHtml.textContent = 'Det spelas ingen låt just nu';
         playListContainer.appendChild(currentSongHtml);
         console.error("Kunde inte hitta information om den aktuella låten.");
-    }
-
-    // Hämta den föregående låten från XML
-    const previousSongElement = xmlDoc.getElementsByTagName("previoussong")[0];
-    if (previousSongElement) {
-        const previousSongTitle = previousSongElement.getElementsByTagName("title")[0]?.textContent || "Okänd titel";
-        const previousSongArtist = previousSongElement.getElementsByTagName("artist")[0]?.textContent || "Okänd artist";
-
-        // Skapa HTML-element för att visa den föregående låten
-        const previousSongHTML = document.createElement("p");
-        previousSongHTML.textContent = `Föregående låt: ${previousSongTitle} av ${previousSongArtist}`;
-        playListContainer.appendChild(previousSongHTML);
-    } else {
-        console.error("Kunde inte hitta information om den föregående låten.");
     }
 }
 

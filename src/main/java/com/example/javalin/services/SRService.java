@@ -42,7 +42,7 @@ public class SRService {
                 response.append("Gick inte att hämta data. Response code: ").append(responseCode);
             }
         } catch (Exception e) {
-            response.append("Ett fel inträffade vid inhämtning av data: ").append(e.getMessage());
+            //response.append("Ett fel inträffade vid inhämtning av data: ").append(e.getMessage());
         }
 
         return response.toString();
