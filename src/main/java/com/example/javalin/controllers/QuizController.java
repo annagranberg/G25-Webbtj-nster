@@ -7,6 +7,7 @@ import com.example.javalin.services.SpotifyService;
 import com.google.gson.GsonBuilder;
 import io.javalin.http.Handler;
 import com.google.gson.Gson;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -30,18 +31,34 @@ public class QuizController {
     public Handler getStartQuiz = ctx -> {
         quiz = new Quiz();
         String currentSong = srService.fetchCurrentSong("164");
-        Answer correctAnswer = new Answer(currentSong.toString(), true);
-        quiz.addAnswer(correctAnswer);
-        ArrayList<String> similarSongStrings = spotifyService.getSimilarSongs(currentSong.toString());
-        for (String text : similarSongStrings) {
-            quiz.addAnswer(new Answer(text, false));
-        }
 
-        ArrayList<Answer> answers = quiz.getAnswers();
-        Map<String, Object> result = new HashMap<>();
-        result.put("Question", "Vad heter låten?");
-        result.put("Answers", answers);
-        //ctx.result(quiz.toString()); //@Todo: ta reda på hur listan med låtar ska returneras på rätt sätt.
-        ctx.result(gson.toJson(result));
+        JSONObject obj = new JSONObject(currentSong);
+        JSONObject playlist = obj.getJSONObject("playlist");
+        if(playlist != null){
+            JSONObject song = playlist.getJSONObject("song");
+
+        if (song != null){
+            String currentSongText  = song.getString("title") + " - " + song.getString("artist"); 
+            if (currentSongText != null && !currentSongText.isEmpty()) {
+                Answer correctAnswer = new Answer(currentSongText, true);
+                quiz.addAnswer(correctAnswer);
+
+                ArrayList<String> similarSongStrings = spotifyService.getSimilarSongs(currentSong);
+                for (String text : similarSongStrings) {
+                    quiz.addAnswer(new Answer(text, false));
+                }
+
+                ArrayList<Answer> answers = quiz.getAnswers();
+                Map<String, Object> result = new HashMap<>();
+                result.put("Question", "Vad heter låten?");
+                result.put("Answers", answers);
+                ctx.result(gson.toJson(result));
+            } else {
+                Map<String, Object> errorResult = new HashMap<>();
+                errorResult.put("Error", "Det gick inte att hämta låten från SR");
+                ctx.result(gson.toJson(errorResult));
+            }
+            }
+        }
     };
 }

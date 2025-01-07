@@ -4,6 +4,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
+import com.example.javalin.models.CurrentSong;
 import org.json.JSONObject;
 import org.json.XML;
 
@@ -11,6 +12,7 @@ import org.json.XML;
 public class SRService {
     private final String SRurl = "https://api.sr.se/api/v2/playlists/rightnow?channelid=";
     private final String srUrlEnd = "&format=json&indent=true";
+    private CurrentSong currentSong;
 
     public String fetchCurrentSong(String channelId) {
         StringBuilder response = new StringBuilder();
@@ -38,6 +40,7 @@ public class SRService {
                         .getJSONObject("song")
                         .getString("artist");
 
+                this.currentSong = new CurrentSong(title, artist);
             } else {
                 response.append("Gick inte att hämta data. Response code: ").append(responseCode);
             }
@@ -46,6 +49,10 @@ public class SRService {
         }
 
         return response.toString();
+    }
+
+    public CurrentSong getCurrentSong() {
+        return currentSong;
     }
 }
 
