@@ -91,19 +91,19 @@ function displayPlaylist(data) {
 async function startQuiz(currentSong) {
     console.log("vi är i start quiz!!")
 
-    const quizDataXML = `
-            <quizData>
-            <title>${currentSong.title}</title>
-            <title>${currentSong.artist}</title>
-            </quizData>`;
+    const quizData = `
+     <quizData>
+         <title>${currentSong.title}</title>
+         <artist>${currentSong.artist}</artist>
+     </quizData>`;
 
     try {
         const response = await fetch("http://localhost:5008/startQuiz", {
             method: "POST",
             headers: {
-                "Content-Type" : "application/xml"
+                "Content-Type" : "application/json"
             },
-            body: quizDataXML
+            body: quizData
         });
 
         const responseText = await response.json();
@@ -113,7 +113,24 @@ async function startQuiz(currentSong) {
             throw new Error("Något gick fel... " + response.status);
         }
 
-        console.log("mottagen data: " + responseText);
+        const quizQuestion = responseText.Question;
+        const answers = responseText.Answers;
+
+        document.getElementById("quiz-question").textContent = quizQuestion;
+
+        const optionsContainer = document.getElementById("quiz-options");
+        optionsContainer.innerHTML = ""; // tar bort tidigare alternativ
+
+        answers.forEach((options, index ) => {
+            const optionHTML = `
+            <label>
+                <input type="radio" name="quiz-option" value="${options.title} - ${options.artist}">
+                ${options.title} - ${options.artist}
+            </label><br>
+        `;
+            optionsContainer.innerHTML += optionHTML;
+
+        });
     } catch (error) {
         console.error("Det gick inte att skicka förfrågan:", error);
     }
