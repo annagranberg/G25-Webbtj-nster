@@ -29,7 +29,7 @@ public class QuizController {
 
     public Handler getStartQuiz = ctx -> {
         quiz = new Quiz();
-        String currentSong = srService.fetchCurrentSong();
+        String currentSong = srService.fetchCurrentSong("164");
         Answer correctAnswer = new Answer(currentSong.toString(), true);
         quiz.addAnswer(correctAnswer);
         ArrayList<String> similarSongStrings = spotifyService.getSimilarSongs(currentSong.toString());

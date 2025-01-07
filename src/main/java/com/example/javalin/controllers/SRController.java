@@ -17,13 +17,12 @@ public class SRController {
 
     // Endpoint för att hämta data från P3
     public Handler getP3PlayList = ctx -> {
-        String currentSong = srService.fetchCurrentSong(); // Hämtar data från service-klassen
+        String currentSong = srService.fetchCurrentSong("164"); // Hämtar data från service-klassen
         ctx.result(currentSong);
     };
 
     public Handler getCurrentSongForQuiz = ctx -> {
-        String currentSong = srService.fetchCurrentSong();
-        //String[][] similarSongs = spotifyController.getSpotifyService().fetchSpotifyRecommendations(currentSong.getTitle(), currentSong.getArtist());
+        String currentSong = srService.fetchCurrentSong("164");
         ctx.result(currentSong); //@Todo: ta reda på hur listan med låtar ska returneras på rätt sätt.
     };
 }
