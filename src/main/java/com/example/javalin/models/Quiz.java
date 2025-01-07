@@ -1,27 +1,28 @@
 package com.example.javalin.models;
 
+import java.util.ArrayList;
+
 public class Quiz {
-    private CurrentSong correctAnswer;
-    private String[][] options;
+    private final String QUESTION = "Vad heter låten?";
+    private ArrayList<Answer> answers;
 
-    public Quiz(CurrentSong correctAnswer, String[][] options) {
-        this.correctAnswer = correctAnswer;
-        this.options = options;
+    public Quiz() {
+        answers = new ArrayList<>();
     }
 
-    public CurrentSong getCorrectAnswer() {
-        return correctAnswer;
+    public void addAnswer(Answer answer) {
+        answers.add(answer);
     }
 
-    public void setCorrectAnswer(CurrentSong correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public ArrayList<Answer> getAnswers() {
+        return answers;
     }
 
-    public String[][] getOptions() {
-        return options;
-    }
-
-    public void setOptions(String[][] options) {
-        this.options = options;
+    @Override
+    public String toString() {
+        return "Quiz{" +
+            "QUESTION='" + QUESTION + '\'' +
+            ", answers=" + answers +
+            '}';
     }
 }

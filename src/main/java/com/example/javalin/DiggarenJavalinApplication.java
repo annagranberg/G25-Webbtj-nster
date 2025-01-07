@@ -1,8 +1,10 @@
 package com.example.javalin;
 
 import com.example.javalin.controllers.Index;
+import com.example.javalin.controllers.QuizController;
 import com.example.javalin.controllers.SRController;
 import com.example.javalin.controllers.SpotifyController;
+import com.example.javalin.models.Quiz;
 import com.example.javalin.services.SRService;
 import com.example.javalin.services.SpotifyService;
 import io.javalin.Javalin;
@@ -30,6 +32,9 @@ public class DiggarenJavalinApplication {
         SRController srController = new SRController(srService, spotifyController);
         Index indexController = new Index();
 
+        // Quiz
+        QuizController quizController = new QuizController(srService, spotifyService);
+
         // Lägger till endpoints
         app.get("/", indexController.index); // Root endpoint
         app.get("/P1.html", indexController.getP1);
@@ -51,6 +56,6 @@ public class DiggarenJavalinApplication {
         });
 
         // @todo: skapa endpoint för att starta quiz.
-        // app.get("/startQuiz", );
+        app.get("/startQuiz", quizController.getStartQuiz);
     }
 }

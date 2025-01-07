@@ -113,7 +113,7 @@ async function startQuiz(currentSong) {
             },
             body: JSON.stringify(quizData) // Konvertera data till JSON och skicka
         });
-
+            console.log(response);
         /*if (response.ok) {
             const quizResult = await response.json();
             console.log("Quizresultat:", quizResult);

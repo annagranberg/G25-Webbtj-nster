@@ -57,7 +57,7 @@ public class SpotifyService {
             String artistName = srJson.getJSONObject("playlist").getJSONObject("song").getString("artist");
 
             // Bygger Spotify API-URL med den extraherade informationen
-            String url = String.format("https://api.spotify.com/v1/recommendations?seed_tracks=%s&seed_artists=%s&limit=5", trackTitle, artistName);
+            String url = String.format("https://api.spotify.com/v1/search?q=artist:${encodeURIComponent(currentSongArtist)}&type=track&limit=2", trackTitle, artistName);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Authorization", "Bearer " + accessToken)
