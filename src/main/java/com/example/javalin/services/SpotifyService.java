@@ -4,14 +4,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class SpotifyService {
-    private final String clientId = "DITTclientid";
-    private final String clientSecret = "DITTclientsecret";
+    private final String clientId = "0dfbaadbec2b44ccbd420b22d5141ff3";
+    private final String clientSecret = "744cbec7d7f446afb9e0ec8784fa0b44";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     private String accessToken;
@@ -45,7 +47,7 @@ public class SpotifyService {
     }
 
     // Hämtar rekommendationer från Spotify baserat på låttitel och artist från SR
-    public List<String> getSimilarSongs(String srResponse) {
+    public ArrayList<String> getSimilarSongs(String srResponse) {
         if (accessToken == null) {
             accessToken = getAccessToken(); // Hämtar token om det inte finns
         }
@@ -56,8 +58,12 @@ public class SpotifyService {
             String trackTitle = srJson.getJSONObject("playlist").getJSONObject("song").getString("title");
             String artistName = srJson.getJSONObject("playlist").getJSONObject("song").getString("artist");
 
+            String encodedTrackTitle = URLEncoder.encode(trackTitle, StandardCharsets.UTF_8);
+            String encodedArtistName = URLEncoder.encode(artistName, StandardCharsets.UTF_8);
+
             // Bygger Spotify API-URL med den extraherade informationen
-            String url = String.format("https://api.spotify.com/v1/search?q=artist:${encodeURIComponent(currentSongArtist)}&type=track&limit=2", trackTitle, artistName);
+            String url = String.format("https://api.spotify.com/v1/search?q=track:%s+artist:%s&type=track&limit=2", trackTitle, artistName);
+
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Authorization", "Bearer " + accessToken)
@@ -66,20 +72,21 @@ public class SpotifyService {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 200) {
+                System.out.println(response.body());
                 return parseRecommendations(response.body());
             } else {
                 throw new Exception("Spotify API-förfrågan misslyckades med statuskod: " + response.statusCode());
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return List.of(); // Returnerar en tom lista om något går fel
+            return new ArrayList<>(); // Returnerar en tom lista om något går fel
         }
     }
 
 
     // Parsar rekommendationerna från JSON-svaret
-    private List<String> parseRecommendations(String responseBody) {
-        List<String> recommendations = new ArrayList<>();
+    private ArrayList<String> parseRecommendations(String responseBody) {
+        ArrayList<String> recommendations = new ArrayList<>();
 
         try {
             JSONObject json = new JSONObject(responseBody);

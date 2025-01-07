@@ -5,6 +5,7 @@ import com.example.javalin.models.Quiz;
 import com.example.javalin.services.SRService;
 import com.example.javalin.services.SpotifyService;
 import io.javalin.http.Handler;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,8 @@ public class QuizController {
     private Quiz quiz;
     private SRService srService;
     private SpotifyService spotifyService;
+    private Gson gson = new Gson();
+
 
     public QuizController(SRService srService, SpotifyService spotifyService) {
         this.srService = srService;
@@ -29,6 +32,7 @@ public class QuizController {
         for (String text : similarSongStrings) {
             quiz.addAnswer(new Answer(text, false));
         }
-        ctx.result(quiz.toString()); //@Todo: ta reda på hur listan med låtar ska returneras på rätt sätt.
+        //ctx.result(quiz.toString()); //@Todo: ta reda på hur listan med låtar ska returneras på rätt sätt.
+        ctx.result(gson.toJson(quiz));
     };
 }

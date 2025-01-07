@@ -1,7 +1,11 @@
 package com.example.javalin.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Answer {
+    @SerializedName("TEXT")
     private String text;
+    @SerializedName("CORRECT")
     private boolean correct;
 
 

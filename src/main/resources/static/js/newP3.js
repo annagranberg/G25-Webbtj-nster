@@ -109,11 +109,28 @@ async function startQuiz(currentSong) {
         const response = await fetch("http://localhost:5008/startQuiz", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json" // Skicka data som JSON
+                "Content type" : "application/json"
             },
-            body: JSON.stringify(quizData) // Konvertera data till JSON och skicka
+            body: JSON.stringify(quizData)
         });
-            console.log(response);
+
+        if(!response.ok){
+            throw new Error("Något gick fel... " + response.status);
+        }
+        /*
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Något gick fel med förfrågan. Statuskod: " + response.status);
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log("Mottagen data:", data);
+            })
+            .catch(error => {
+                console.error("Det gick inte att hämta data:", error);
+            });
+
         /*if (response.ok) {
             const quizResult = await response.json();
             console.log("Quizresultat:", quizResult);
