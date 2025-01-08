@@ -43,7 +43,7 @@ public class QuizController {
                 Answer correctAnswer = new Answer(currentSongText, true);
                 quiz.addAnswer(correctAnswer);
 
-                ArrayList<String> similarSongStrings = spotifyService.getSimilarSongs(currentSong);
+                ArrayList<String> similarSongStrings = spotifyService.getSongsFromSameAlbum(currentSong);
                 for (String text : similarSongStrings) {
                     quiz.addAnswer(new Answer(text, false));
                 }
