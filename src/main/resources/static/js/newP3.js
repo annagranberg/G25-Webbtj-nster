@@ -3,6 +3,7 @@ const audioElement = document.getElementById("P3-player");
 const playButton = document.getElementById("play-button");
 const playQuiz = document.getElementById("play-quiz");
 const submitAnswer = document.getElementById("submit-answer");
+const nextQuestion = document.getElementById("next-question");
 
 document.getElementById("play-button").addEventListener("click", function() {
     audioElement.src = apiUrl;
@@ -53,14 +54,21 @@ function displayPlaylist(data) {
             artist: playlist.previoussong.artist || "Okänd artist",
             title: playlist.previoussong.title || "Okänd titel"
         }
-        const currentSong = {
-            artist: playlist.song.artist || "Okänd artist",
-            title: playlist.song.title || "Okänd titel"
-        }
 
-        const currentSongHTML = document.createElement("p");
-        currentSongHTML.textContent = `Nuvarande låt: ${currentSong.title} av ${currentSong.artist}`;
-        playListContainer.appendChild(currentSongHTML);
+        if(data.song){
+            const currentSong = {
+                artist: playlist.song.artist || "Okänd artist",
+                title: playlist.song.title || "Okänd titel"
+            }
+
+            const currentSongHTML = document.createElement("p");
+            currentSongHTML.textContent = `Nuvarande låt: ${currentSong.title} av ${currentSong.artist}`;
+            playListContainer.appendChild(currentSongHTML);
+        } else {
+            const currentSongHtml = document.createElement("p");
+            currentSongHtml.textContent = 'Det spelas ingen låt just nu';
+            playListContainer.appendChild(currentSongHtml);
+        }
 
         const previousSongHTML = document.createElement("p");
         previousSongHTML.textContent = `Föregående låt: ${previousSong.title} av ${previousSong.artist}`;
@@ -115,6 +123,30 @@ async function startQuiz() {
             optionsContainer.innerHTML += optionHTML;
         });
 
+        document.getElementById("submit-answer").addEventListener("click", function(){
+            submitAnswer.style.display = "none";
+            nextQuestion.style.display = "block";
+
+            const options = document.getElementById("quiz-options");
+            let selectedOption = null;
+
+            for(let i = 0; i < options.length; i++){
+                if(options[i].checked){
+                    selectedOption = options[i].value;
+                }
+            }
+
+            if(selectedOption){
+                console.log(selectedOption);
+                if(selectedOption = correctAnswer.TEXT){
+                    console.log("korrekt svar");
+                } else{
+                    console.log("fel svar");
+                }
+            }
+            console.log("valt svar: " + selectedOption);
+        });
+
     } catch (error) {
         console.error("Det gick inte att skicka förfrågan:", error);
         const optionsContainer = document.getElementById("quiz-options");
@@ -122,17 +154,4 @@ async function startQuiz() {
     }
 }
 
-document.getElementById("submit-answer").addEventListener("click", function(){
-    submitAnswer.style.display = "none";
 
-    const options = document.getElementById("quiz-options");
-    let selectedOption = null;
-
-    for(let i = 0; i < options.length(); i++){
-        if(options[i].checked){
-            selectedOption = options[i].value;
-        }
-    }
-
-    console.log("valt svar: " + selectedOption);
- });
