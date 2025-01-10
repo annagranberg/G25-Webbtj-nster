@@ -16,6 +16,7 @@ document.getElementById("play-button").addEventListener("click", function() {
         .catch(error => console.error("Fel vid uppspelning:", error));
 });
 
+
 document.getElementById("play-quiz").addEventListener("click", function () {
     console.log("Play quiz knappen klickades");
     startQuiz();
@@ -57,7 +58,7 @@ function displayPlaylist(data) {
             title: playlist.previoussong.title || "Okänd titel"
         }
 
-        if(data.song){
+        if(!data.song){
             const currentSong = {
                 artist: playlist.song.artist || "Okänd artist",
                 title: playlist.song.title || "Okänd titel"
@@ -146,7 +147,6 @@ async function startQuiz() {
                 console.log(selectedOption);
                 if(selectedOption === correctAnswer.TEXT){
                     console.log("korrekt svar");
-                    selectedOption = currentSong;
                     feedback.innerHTML = "Rätt svar! 🎉";
                     submitAnswer.style.display = "none";
                     nextQuestion.style.display = "block";
@@ -156,7 +156,7 @@ async function startQuiz() {
                     submitAnswer.style.display = "none";
                     nextQuestion.style.display = "block";
                 }
-            } else if(selectedOption === null){
+            } else if(!selectedOption){
                 feedback.innerHTML = "Du måste välja ett alternativ"
             }
             console.log("valt svar: " + selectedOption);
@@ -177,18 +177,18 @@ document.getElementById("next-question").addEventListener("click", function (){
     fetch("http://localhost:5008/P3PlayList")
         .then(response => response.json())
         .then(data => {
-            const newSong = data.song ? data.song.title : null;
+            const newSong = data.playlist.song ? data.playlist.song.title : null;
             if(newSong === currentSong){
                 feedback.innerHTML  = "Vänta tills nästa låt spelar";
                 submitAnswer.style.display = "none";
                 nextQuestion.style.display = "block";
                 return;
-            }
+            }else {
+                startQuiz();
 
+            }
             currentSong = newSong;
             console.log("current song: " + currentSong);
-            startQuiz();
-
         })
         .catch(error => console.error("Det gick inte att hämta aktuell låt: " + error));
 });
