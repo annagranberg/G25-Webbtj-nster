@@ -170,6 +170,8 @@ async function startQuiz() {
     } catch (error) {
         console.error("Det gick inte att starta quiz:", error);
         feedback.innerHTML = "Det går inte att spela quiz just nu, försök igen när en låt spelas!";
+        playQuiz.style.display = "block";
+        submitAnswer.style.display = "none";
     }
 }
 
