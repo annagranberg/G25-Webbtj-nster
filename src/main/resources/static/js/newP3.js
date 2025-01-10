@@ -16,7 +16,6 @@ document.getElementById("play-button").addEventListener("click", function() {
 document.getElementById("play-quiz").addEventListener("click", function () {
     console.log("Play quiz knappen klickades");
     startQuiz();
-
 });
 
 // ny metod för att hämta SR låtlista via vårt egna API
@@ -91,8 +90,9 @@ async function startQuiz() {
         const responseText = await response.json();
         console.log("Mottagen API-data:", responseText);
 
-        if (!responseText) {
-            throw new Error("Något gick fel... Inget svar från servern.");
+        if (!responseText.Answers) {
+            throw new Error("Något gick fel... Inget svar från servern. Förmodligen för att det inte spelas en låt");
+            return false;
         }
 
         const quizQuestion = responseText.Question;
@@ -117,5 +117,22 @@ async function startQuiz() {
 
     } catch (error) {
         console.error("Det gick inte att skicka förfrågan:", error);
+        const optionsContainer = document.getElementById("quiz-options");
+        optionsContainer.innerHTML = "Det går inte att spela Quiz just nu, försök igen när du hör en låt spelas!";
     }
 }
+
+document.getElementById("submit-answer").addEventListener("click", function(){
+    submitAnswer.style.display = "none";
+
+    const options = document.getElementById("quiz-options");
+    let selectedOption = null;
+
+    for(let i = 0; i < options.length(); i++){
+        if(options[i].checked){
+            selectedOption = options[i].value;
+        }
+    }
+
+    console.log("valt svar: " + selectedOption);
+ });
