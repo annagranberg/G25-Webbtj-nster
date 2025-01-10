@@ -148,7 +148,6 @@ public class SpotifyService {
 
     // Parsar rekommendationerna från JSON-svaret till en arraylist
     private ArrayList<String> parseSimilarSongs(String responseBody) {
-        //System.out.println(responseBody);
         ArrayList<String> recommendations = new ArrayList<>();
 
         try {
@@ -168,4 +167,56 @@ public class SpotifyService {
 
         return recommendations;
     }
+
+    public ArrayList<String> getArtistSongs(String srResponse) {
+        if (accessToken == null) {
+            accessToken = getAccessToken();
+        }
+
+        try {
+            JSONObject srJson = new JSONObject(srResponse);
+            String artistName = srJson.getJSONObject("playlist").getJSONObject("song").getString("artist");
+
+            String encodedArtistName = URLEncoder.encode(artistName, StandardCharsets.UTF_8);
+
+            String url = String.format("https://api.spotify.com/v1/artists/%s/top-tracks?market=SE", encodedArtistName);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Authorization", "Bearer " + accessToken)
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                return parseArtistSongs(response.body());
+            } else {
+                throw new Exception("Spotify API-förfrågan misslyckades med statuskod: " + response.statusCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    private ArrayList<String> parseArtistSongs(String responseBody) {
+        ArrayList<String> artistSongs = new ArrayList<>();
+
+        try {
+            JSONObject json = new JSONObject(responseBody);
+            JSONArray tracks = json.getJSONArray("tracks");
+
+            for (int i = 0; i < tracks.length(); i++) {
+                JSONObject track = tracks.getJSONObject(i);
+                String trackName = track.getString("name");
+                artistSongs.add(trackName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+
+        return artistSongs;
+    }
+
 }
