@@ -120,7 +120,9 @@ async function startQuiz() {
         });
 
         if (uniqueAnswer.length < 4) {
-            feedback.innerHTML = "Det fick inte att generera tre unika svarsalternativ. Försök igen senare";
+            feedback.innerHTML = "Det gick inte att generera svarsalternativ. Försök igen senare";
+            playQuiz.style.display = "block";
+            submitAnswer.style.display = "none";
             return;
         }
 
