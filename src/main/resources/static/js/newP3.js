@@ -86,7 +86,7 @@ function displayPlaylist(data) {
 }
 
 async function startQuiz() {
-    console.log("vi är i start quiz!!");
+    console.log("Vi är i startQuiz!");
     playQuiz.style.display = "none";
     submitAnswer.style.display = "block";
 
@@ -101,10 +101,8 @@ async function startQuiz() {
         const responseText = await response.json();
         console.log("Mottagen API-data:", responseText);
 
-        if (!responseText.Answers) {
-            throw new Error("Något gick fel... Inget svar från servern. Förmodligen för att det inte spelas en låt");
-            playQuiz.style.display = "block";
-            return false;
+        if (!responseText.Answers || responseText.Answers.length === 0) {
+            throw new Error("Inga svarsalternativ mottogs. Förmodligen för att det inte spelas någon låt.");
         }
 
         const quizQuestion = responseText.Question;
@@ -118,77 +116,75 @@ async function startQuiz() {
         optionsContainer.innerHTML = "";
 
         answers.forEach((answer) => {
-            let song = answer.TEXT;
-
             const optionHTML = `
                 <label>
-                    <input type="radio" name="quiz-option" value="${song}">
-                        ${song}
+                    <input type="radio" name="quiz-option" value="${answer.TEXT}">
+                    ${answer.TEXT}
                 </label><br>
-                `;
+            `;
             optionsContainer.innerHTML += optionHTML;
         });
 
-        document.getElementById("submit-answer").addEventListener("click", function(){
-            playQuiz.style.display = "none";
-            optionsContainer.style.display = "none";
-
-            const options = document.getElementById("quiz-options");
-            let selectedOption = null;
-
-            for(let i = 0; i < options.length; i++){
-                if(options[i].checked){
-                    selectedOption = options[i].value;
-                }
-            }
-
+        document.getElementById("submit-answer").onclick = function () {
+            const selectedOption = document.querySelector('input[name="quiz-option"]:checked');
             feedback.innerHTML = "";
-            if(selectedOption){
-                console.log(selectedOption);
-                if(selectedOption === correctAnswer.TEXT){
-                    console.log("korrekt svar");
-                    feedback.innerHTML = "Rätt svar! 🎉";
-                    submitAnswer.style.display = "none";
-                    nextQuestion.style.display = "block";
-                } else {
-                    console.log("fel svar");
-                    feedback.innerHTML = "Fel svar ☹️";
-                    submitAnswer.style.display = "none";
-                    nextQuestion.style.display = "block";
-                }
-            } else if(!selectedOption){
-                feedback.innerHTML = "Du måste välja ett alternativ"
+
+            if (!selectedOption) {
+                feedback.innerHTML = "Du måste välja ett alternativ!";
+                return;
             }
-            console.log("valt svar: " + selectedOption);
-        });
+
+            const selectedAnswer = selectedOption.value;
+            console.log("Valt svar:", selectedAnswer);
+
+            if (selectedAnswer === correctAnswer.TEXT) {
+                feedback.innerHTML = "Rätt svar! 🎉";
+            } else {
+                feedback.innerHTML = "Fel svar ☹️";
+            }
+
+            submitAnswer.style.display = "none";
+            nextQuestion.style.display = "block";
+        };
 
     } catch (error) {
-        console.error("Det gick inte att skicka förfrågan:", error);
-        const optionsContainer = document.getElementById("quiz-options");
-        optionsContainer.innerHTML = "Det går inte att spela Quiz just nu, försök igen när du hör en låt spelas!";
+        console.error("Det gick inte att starta quiz:", error);
+        feedback.innerHTML = "Det går inte att spela quiz just nu, försök igen när en låt spelas!";
     }
 }
 
-document.getElementById("next-question").addEventListener("click", function (){
-    console.log("Next question knappen klickades");
-    nextQuestion.style.display = "none";
-    submitAnswer.style.display = "block";
+document.getElementById("next-question").addEventListener("click", function () {
+    console.log("Next question-knappen klickades");
 
     fetch("http://localhost:5008/P3PlayList")
         .then(response => response.json())
         .then(data => {
-            const newSong = data.playlist.song ? data.playlist.song.title : null;
-            if(newSong === currentSong){
-                feedback.innerHTML  = "Vänta tills nästa låt spelar";
+            const newSong = data.playlist?.song?.title || null;
+
+            if (!newSong) {
+                // Ingen låt spelas
+                feedback.innerHTML = "Ingen låt spelas just nu, luta dig tillbaka och vänta på nästa låt för att spela quizet snart igen.";
                 submitAnswer.style.display = "none";
                 nextQuestion.style.display = "block";
                 return;
-            }else {
-                startQuiz();
-
             }
+
+            if (newSong === currentSong) {
+                // Samma låt spelas
+                feedback.innerHTML = "Du kan inte spela quiz förrän nästa låt.";
+                submitAnswer.style.display = "none";
+                nextQuestion.style.display = "block";
+                return;
+            }
+
+            // Ny låt spelas
             currentSong = newSong;
-            console.log("current song: " + currentSong);
+            feedback.innerHTML = ""; // Rensa tidigare feedback
+            console.log("Ny låt hittad:", currentSong);
+            startQuiz(); // Starta quiz med den nya låten
         })
-        .catch(error => console.error("Det gick inte att hämta aktuell låt: " + error));
+        .catch(error => {
+            console.error("Fel vid hämtning av låt:", error);
+            feedback.innerHTML = "Det gick inte att hämta aktuell låt. Försök igen senare.";
+        });
 });
