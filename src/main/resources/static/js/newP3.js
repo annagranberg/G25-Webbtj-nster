@@ -106,7 +106,27 @@ async function startQuiz() {
         }
 
         const quizQuestion = responseText.Question;
-        const answers = responseText.Answers;
+        let answers = responseText.Answers;
+        //const answers = responseText.Answers;
+
+        const uniqueAnswer = [];
+        const seen = new Set();
+        answers.forEach(answer => {
+            const key = answer.TEXT.toLowerCase();
+            if (!seen.has(key)) {
+                seen.add(key);
+                uniqueAnswer.push(answer);
+            }
+        });
+
+        if (uniqueAnswer.length < 4) {
+            feedback.innerHTML = "Det fick inte att generera tre unika svarsalternativ. Försök igen senare";
+            return;
+        }
+
+        uniqueAnswers = uniqueAnswer.slice(0, 3);
+        //blanda alternativen
+        shuffleArray(uniqueAnswer);
 
         const correctAnswer = answers.find(answer => answer.CORRECT === true);
 
@@ -150,6 +170,14 @@ async function startQuiz() {
     } catch (error) {
         console.error("Det gick inte att starta quiz:", error);
         feedback.innerHTML = "Det går inte att spela quiz just nu, försök igen när en låt spelas!";
+    }
+}
+
+function shuffleArray(array) {
+    console.log("Vi är i shuffleArray:");
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
 }
 

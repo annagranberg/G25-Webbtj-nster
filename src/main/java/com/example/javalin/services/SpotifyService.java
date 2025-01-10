@@ -96,7 +96,7 @@ public class SpotifyService {
                 JSONObject responseJson = new JSONObject(response.body());
                 ArrayList<String> similarSongs = new ArrayList<>();
 
-                for(int i = 1; i < 3; i++){ // i är 1 för att hoppa över låten vi skickat in, i<3 för att hämta 2 låtar
+                for(int i = 1; i < 5; i++){ // i är 1 för att hoppa över låten vi skickat in, i<3 för att hämta 2 låtar
                     String songtitle = responseJson.getJSONArray("items").getJSONObject(i).getString("name");
                     similarSongs.add(songtitle);
                 }
@@ -126,7 +126,7 @@ public class SpotifyService {
             String encodedArtistName = URLEncoder.encode(artistName, StandardCharsets.UTF_8);
 
             // Bygger Spotify API-URL med den extraherade informationen
-            String url = String.format("https://api.spotify.com/v1/search?q=track:%s+artist:%s&type=track&limit=2", encodedTrackTitle, encodedArtistName);
+            String url = String.format("https://api.spotify.com/v1/search?q=track:%s+artist:%s&type=track&limit=5", encodedTrackTitle, encodedArtistName);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
