@@ -119,23 +119,27 @@ async function startQuiz() {
             }
         });
 
-        if (uniqueAnswer.length < 4) {
+        console.log("Unika svar:", uniqueAnswer);
+
+        if (uniqueAnswer.length < 3) {
             feedback.innerHTML = "Det fick inte att generera tre unika svarsalternativ. Försök igen senare";
+            playQuiz.style.display = "block";
+            submitAnswer.style.display = "none";
             return;
         }
 
-        uniqueAnswers = uniqueAnswer.slice(0, 3);
-        //blanda alternativen
-        shuffleArray(uniqueAnswer);
+        const limitedAnswers = shuffleArray(uniqueAnswer).slice(0, 5);
+        console.log("Begränsade och blandade svar:", limitedAnswers);
 
-        const correctAnswer = answers.find(answer => answer.CORRECT === true);
+        //blanda alternativen
+        const correctAnswer = limitedAnswers.find(answer => answer.CORRECT === true);
 
         document.getElementById("quiz-question").textContent = quizQuestion;
 
         const optionsContainer = document.getElementById("quiz-options");
         optionsContainer.innerHTML = "";
 
-        answers.forEach((answer) => {
+        limitedAnswers.forEach(answer => {
             const optionHTML = `
                 <label>
                     <input type="radio" name="quiz-option" value="${answer.TEXT}">
@@ -181,6 +185,7 @@ function shuffleArray(array) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
+    return array;
 }
 
 document.getElementById("next-question").addEventListener("click", function () {
