@@ -4,6 +4,8 @@ const playButton = document.getElementById("play-button");
 const playQuiz = document.getElementById("play-quiz");
 const submitAnswer = document.getElementById("submit-answer");
 const nextQuestion = document.getElementById("next-question");
+const feedback = document.getElementById("quiz-feedback");
+let currentSong = null;
 
 document.getElementById("play-button").addEventListener("click", function() {
     audioElement.src = apiUrl;
@@ -100,6 +102,7 @@ async function startQuiz() {
 
         if (!responseText.Answers) {
             throw new Error("Något gick fel... Inget svar från servern. Förmodligen för att det inte spelas en låt");
+            playQuiz.style.display = "block";
             return false;
         }
 
@@ -126,8 +129,7 @@ async function startQuiz() {
         });
 
         document.getElementById("submit-answer").addEventListener("click", function(){
-            submitAnswer.style.display = "none";
-            nextQuestion.style.display = "block";
+            playQuiz.style.display = "none";
             optionsContainer.style.display = "none";
 
             const options = document.getElementById("quiz-options");
@@ -139,17 +141,23 @@ async function startQuiz() {
                 }
             }
 
-            const feedback = document.getElementById("quiz-feedback");
             feedback.innerHTML = "";
             if(selectedOption){
                 console.log(selectedOption);
-                if(selectedOption = correctAnswer.TEXT){
+                if(selectedOption === correctAnswer.TEXT){
                     console.log("korrekt svar");
+                    selectedOption = currentSong;
                     feedback.innerHTML = "Rätt svar! 🎉";
-                } else{
+                    submitAnswer.style.display = "none";
+                    nextQuestion.style.display = "block";
+                } else {
                     console.log("fel svar");
                     feedback.innerHTML = "Fel svar ☹️";
+                    submitAnswer.style.display = "none";
+                    nextQuestion.style.display = "block";
                 }
+            } else if(selectedOption === null){
+                feedback.innerHTML = "Du måste välja ett alternativ"
             }
             console.log("valt svar: " + selectedOption);
         });
@@ -166,6 +174,21 @@ document.getElementById("next-question").addEventListener("click", function (){
     nextQuestion.style.display = "none";
     submitAnswer.style.display = "block";
 
+    fetch("http://localhost:5008/P3PlayList")
+        .then(response => response.json())
+        .then(data => {
+            const newSong = data.song ? data.song.title : null;
+            if(newSong === currentSong){
+                feedback.innerHTML  = "Vänta tills nästa låt spelar";
+                submitAnswer.style.display = "none";
+                nextQuestion.style.display = "block";
+                return;
+            }
 
-    startQuiz();
+            currentSong = newSong;
+            console.log("current song: " + currentSong);
+            startQuiz();
+
+        })
+        .catch(error => console.error("Det gick inte att hämta aktuell låt: " + error));
 });
