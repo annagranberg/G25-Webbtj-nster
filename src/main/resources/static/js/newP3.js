@@ -106,6 +106,8 @@ async function startQuiz() {
         const quizQuestion = responseText.Question;
         const answers = responseText.Answers;
 
+        const correctAnswer = answers.find(answer => answer.CORRECT === true);
+
         document.getElementById("quiz-question").textContent = quizQuestion;
 
         const optionsContainer = document.getElementById("quiz-options");
@@ -126,6 +128,7 @@ async function startQuiz() {
         document.getElementById("submit-answer").addEventListener("click", function(){
             submitAnswer.style.display = "none";
             nextQuestion.style.display = "block";
+            optionsContainer.style.display = "none";
 
             const options = document.getElementById("quiz-options");
             let selectedOption = null;
@@ -136,12 +139,16 @@ async function startQuiz() {
                 }
             }
 
+            const feedback = document.getElementById("quiz-feedback");
+            feedback.innerHTML = "";
             if(selectedOption){
                 console.log(selectedOption);
                 if(selectedOption = correctAnswer.TEXT){
                     console.log("korrekt svar");
+                    feedback.innerHTML = "Rätt svar! 🎉";
                 } else{
                     console.log("fel svar");
+                    feedback.innerHTML = "Fel svar ☹️";
                 }
             }
             console.log("valt svar: " + selectedOption);
@@ -154,4 +161,11 @@ async function startQuiz() {
     }
 }
 
+document.getElementById("next-question").addEventListener("click", function (){
+    console.log("Next question knappen klickades");
+    nextQuestion.style.display = "none";
+    submitAnswer.style.display = "block";
 
+
+    startQuiz();
+});
