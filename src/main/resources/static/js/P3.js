@@ -4,8 +4,8 @@ const playButton = document.getElementById("play-button");
 const playQuiz = document.getElementById("play-quiz");
 const submitAnswer = document.getElementById("submit-answer");
 const noQuiz = document.getElementById("no-Quiz");
-const clientId = "";
-const clientSecret = "";
+const clientId = "6305755872b64a43b96b91f6179be867";
+const clientSecret = "56cfce47973c47ca922d584dbe09fb6e";
 let currentSongTitle = "";
 let currentSongArtist = "";
 

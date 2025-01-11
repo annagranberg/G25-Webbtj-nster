@@ -26,61 +26,68 @@ public class QuizController {
         this.srService = srService;
         this.spotifyService = spotifyService;
     }
-
     public Handler getStartQuiz = ctx -> {
         quiz = new Quiz();
         String currentSong = srService.fetchCurrentSong("164");
 
-        JSONObject obj = new JSONObject(currentSong);
-        JSONObject playlist = obj.getJSONObject("playlist");
-        if (playlist != null) {
-            JSONObject song = playlist.getJSONObject("song");
+        try {
+            JSONObject obj = new JSONObject(currentSong);
+            JSONObject playlist = obj.optJSONObject("playlist"); // Använd optJSONObject för att undvika undantag
 
-            if (song != null) {
-                String currentSongText = song.getString("title");
-                if (currentSongText != null && !currentSongText.isEmpty()) {
-                    Answer correctAnswer = new Answer(currentSongText, true);
-                    quiz.addAnswer(correctAnswer);
+            if (playlist == null) {
+                ctx.result(gson.toJson(Map.of("Error", "Playlist saknas i svaret från Sveriges Radio")));
+                return;
+            }
 
-                    ArrayList<String> songsFromSameAlbum = spotifyService.getSongsFromSameAlbum(currentSong);
-                    for (String text : songsFromSameAlbum) {
-                        quiz.addAnswer(new Answer(text, false));
-                    }
+            JSONObject song = playlist.optJSONObject("song"); // Använd optJSONObject för att undvika undantag
+            if (song == null) {
+                ctx.result(gson.toJson(Map.of("Error", "Ingen aktuell låt hittades i playlisten")));
+                return;
+            }
 
-                    if (quiz.getAnswers().size() < 3) {
-                        ArrayList<String> artistSongs = spotifyService.getArtistSongs(currentSong);
-                        for (String text : artistSongs) {
-                            quiz.addAnswer(new Answer(text, false));
-                        }
-                    }
+            String currentSongText = song.optString("title", ""); // Undvik null genom att ge en standardvärde
+            if (currentSongText.isEmpty()) {
+                ctx.result(gson.toJson(Map.of("Error", "Titel för den aktuella låten saknas")));
+                return;
+            }
 
-                    if (quiz.getAnswers().size() < 3) {
-                        ArrayList<String> similarSongs = spotifyService.getSimilarSongs(currentSong);
-                        for (String text : similarSongs) {
-                            // Se till att vi inte lägger till samma låt som rätt svar
-                            if (!text.equals(correctAnswer.getText())) {
-                                quiz.addAnswer(new Answer(text, false));
-                            }
-                        }
-                    }
+            Answer correctAnswer = new Answer(currentSongText, true);
+            quiz.addAnswer(correctAnswer);
 
-                    ArrayList<Answer> answers = quiz.getAnswers();
-                    if (answers.size() > 1) {
-                        Map<String, Object> result = new HashMap<>();
-                        result.put("Question", "Vad heter låten?");
-                        result.put("Answers", answers);
-                        ctx.result(gson.toJson(result));
-                    } else {
-                        Map<String, Object> errorResult = new HashMap<>();
-                        errorResult.put("Error", "Det gick inte att hitta tillräckligt med låtar för quizet.");
-                        ctx.result(gson.toJson(errorResult));
-                    }
-                } else {
-                    Map<String, Object> errorResult = new HashMap<>();
-                    errorResult.put("Error", "Det gick inte att hämta låten från SR");
-                    ctx.result(gson.toJson(errorResult));
+            // Lägg till fler svarsalternativ
+            ArrayList<String> songsFromSameAlbum = spotifyService.getSongsFromSameAlbum(currentSong);
+            for (String text : songsFromSameAlbum) {
+                quiz.addAnswer(new Answer(text, false));
+            }
+
+            if (quiz.getAnswers().size() < 3) {
+                ArrayList<String> artistSongs = spotifyService.getArtistSongs(currentSong);
+                for (String text : artistSongs) {
+                    quiz.addAnswer(new Answer(text, false));
                 }
             }
+
+            if (quiz.getAnswers().size() < 3) {
+                ArrayList<String> similarSongs = spotifyService.getSimilarSongs(currentSong);
+                for (String text : similarSongs) {
+                    if (!text.equals(correctAnswer.getText())) {
+                        quiz.addAnswer(new Answer(text, false));
+                    }
+                }
+            }
+
+            ArrayList<Answer> answers = quiz.getAnswers();
+            if (answers.size() > 1) {
+                Map<String, Object> result = new HashMap<>();
+                result.put("Question", "Vad heter låten?");
+                result.put("Answers", answers);
+                ctx.result(gson.toJson(result));
+            } else {
+                ctx.result(gson.toJson(Map.of("Error", "Det gick inte att hitta tillräckligt med låtar för quizet.")));
+            }
+        } catch (Exception e) {
+            ctx.result(gson.toJson(Map.of("Error", "Ett fel inträffade vid bearbetning av API-svaret: " + e.getMessage())));
+            e.printStackTrace(); // Logga felet för felsökning
         }
     };
 }
