@@ -31,6 +31,7 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
     fetch("http://localhost:5008/P3PlayList")
         .then(response => response.json())
         .then(data => {
+            console.log("api-data mottagen:" + data); //testar debug
             console.log("Raw response: " + data);
             // Kontrollerar så att xmlDoc är korrekt
             if (data && data.playlist) {

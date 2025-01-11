@@ -12,8 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class SpotifyService {
-    private final String clientId = "0dfbaadbec2b44ccbd420b22d5141ff3";
-    private final String clientSecret = "ebf1324bba0f464e80727e68f91549ce";
+    private final String clientId = "";
+    private final String clientSecret = "";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     private String accessToken;
@@ -70,9 +70,16 @@ public class SpotifyService {
             if (response.statusCode() == 200) {
                 JSONObject responseJson = new JSONObject(response.body());
 
-                String albumId = responseJson.getJSONObject("tracks").getJSONArray("items").getJSONObject(0)
-                        .getJSONObject("album").getString("id");
+                //kontrollerar om items-arrayen innehåller objekt
+                JSONArray items = responseJson.getJSONObject("tracks").getJSONArray("items");
+                if (items.length() == 0) {
+                    throw new Exception(("Inga låtar hittades i Spotify-svaret"));
+                }
 
+                //hämta album-id från det första objektet
+                String albumId = items.getJSONObject(0).getJSONObject("album").getString("id");
+
+                //hämta låt fr album
                 return getTracksFromAlbum(albumId);
             } else {
                 throw new Exception("Spotify förfrågan misslyckades: " + response.statusCode());
@@ -94,11 +101,14 @@ public class SpotifyService {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 JSONObject responseJson = new JSONObject(response.body());
+                JSONArray items = responseJson.getJSONArray("items");
                 ArrayList<String> similarSongs = new ArrayList<>();
 
-                for(int i = 1; i < 5; i++){ // i är 1 för att hoppa över låten vi skickat in, i<3 för att hämta 2 låtar
-                    String songtitle = responseJson.getJSONArray("items").getJSONObject(i).getString("name");
-                    similarSongs.add(songtitle);
+                //kontrollera att arrayen har tillräckligt med objekt
+                int numberOfTracks = Math.min(items.length(), 5); //högst 5 låtar
+                for(int i = 1; i < numberOfTracks; i++){ //börja fr index 1
+                    String songTitle = items.getJSONObject(i).getString("name");
+                    similarSongs.add(songTitle);
                 }
                 return similarSongs;
             } else{
@@ -168,6 +178,44 @@ public class SpotifyService {
         return recommendations;
     }
 
+
+    //testar lägga till metod för att först hämta artist-ID fr spotify baserat på artistens namn och sedan använda detta id
+    //i anropför att få artistens top-tracks
+    public String getArtistId(String artistName) {
+        if (accessToken == null) {
+            accessToken = getAccessToken();
+        }
+
+        try {
+            String encodedArtistName = URLEncoder.encode(artistName, StandardCharsets.UTF_8);
+            String url = String.format("https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg" + encodedArtistName);
+
+            System.out.println("skickar förfrågan för att hämta artist-id" + url);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Authorization", "Bearer " + accessToken)
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                JSONObject jsonResponse = new JSONObject(response.body());
+                JSONArray artists = jsonResponse.getJSONObject("artists").getJSONArray("items");
+
+                if (artists.length() > 0) {
+                    return artists.getJSONObject(0).getString("is");
+            } else {
+                throw new Exception("Ingen artist hittades med namnet" + response.statusCode());
+            }
+        } else {
+                throw new Exception("spotify api-förfrågan misslyckades med statuskod: " + response.statusCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("kunde inte hämta artist-s för: " + artistName, e);
+        }
+    }
+
     public ArrayList<String> getArtistSongs(String srResponse) {
         if (accessToken == null) {
             accessToken = getAccessToken();
@@ -177,17 +225,21 @@ public class SpotifyService {
             JSONObject srJson = new JSONObject(srResponse);
             String artistName = srJson.getJSONObject("playlist").getJSONObject("song").getString("artist");
 
-            String encodedArtistName = URLEncoder.encode(artistName, StandardCharsets.UTF_8);
+            String artistId = getArtistId(artistName);
+            if (artistId == null) {
+                throw new Exception("kunde inte hämta artist-id för: " + artistName);
+            }
+            //String encodedArtistName = URLEncoder.encode(artistName, StandardCharsets.UTF_8);
 
-            String url = String.format("https://api.spotify.com/v1/artists/%s/top-tracks?market=SE", encodedArtistName);
+            String url = String.format("https://api.spotify.com/v1/artists/%s/top-tracks?market=SE", artistId);
 
+            System.out.println("Skicka förfrågan till spotify api: " + url);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Authorization", "Bearer " + accessToken)
                     .build();
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
             if (response.statusCode() == 200) {
                 return parseArtistSongs(response.body());
             } else {
