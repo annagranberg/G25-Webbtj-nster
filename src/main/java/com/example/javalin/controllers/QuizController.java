@@ -87,7 +87,6 @@ public class QuizController {
             }
         } catch (Exception e) {
             ctx.result(gson.toJson(Map.of("Error", "Ett fel inträffade vid bearbetning av API-svaret: " + e.getMessage())));
-            e.printStackTrace(); // Logga felet för felsökning
         }
     };
 }
