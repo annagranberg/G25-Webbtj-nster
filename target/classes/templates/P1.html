@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SR X SPOTIFY</title>
-    <link rel="stylesheet" href="/css/Style.css">
     <script src="/js/index.js" defer></script>
     <script src="/js/P1.js" defer></script>
+    <link rel="stylesheet" href="/css/Style.css">
+    <title>SR X SPOTIFY</title>
 </head>
 <body>
 <main>
@@ -14,15 +14,23 @@
             <img src="/images/P1img.png" alt="P1 kanalbild">
         </p>
     </section>
+
+    <div class="container">
+        <button id="play-button">Hämta och spela P1</button>
+        <audio id="P1-player" controls style="display: none;"></audio>
+        <div id="quiz-container">
+            <div id="quiz-question"></div>
+            <form id="quiz-options"></form>
+            <button id="play-quiz">Spela vårt Quiz!</button>
+            <button id="submit-answer" style="display: none;">Skicka svar</button>
+            <button id="next-question" style="display: none">Nästa fråga</button>
+            <div id="quiz-feedback"></div>
+        </div>
+        <button id="no-Quiz">Visa låt istället (Quiz kommer inte kunna spelas om du klickar här)</button>
+        <div id="playList-container">
+
+        </div>
+    </div>
 </main>
-<div class="container">
-    <button id="play-button">Hämta och spela P1</button>
-    <audio id="P1-player" controls style="display: none;"></audio>
-    <button id="playlist-button">Visa låt som spelas</button>
-</div>
-<div class="playlistContainer">
-    <div class="previous-song"></div>
-    <div class="current-song"></div>
-</div>
 </body>
 </html>

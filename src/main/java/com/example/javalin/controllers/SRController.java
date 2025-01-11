@@ -25,4 +25,14 @@ public class SRController {
         String currentSong = srService.fetchCurrentSong("164");
         ctx.result(currentSong); //@Todo: ta reda på hur listan med låtar ska returneras på rätt sätt.
     };
+
+    public Handler getP1PlayList = ctx -> {
+        String currentSong = srService.fetchCurrentSong("132"); // Hämtar data från service-klassen
+        ctx.result(currentSong);
+    };
+
+    public Handler getP1CurrentSongForQuiz = ctx -> {
+        String currentSong = srService.fetchCurrentSong("132");
+        ctx.result(currentSong); //@Todo: ta reda på hur listan med låtar ska returneras på rätt sätt.
+    };
 }
