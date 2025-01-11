@@ -85,7 +85,6 @@ public class SpotifyService {
                 throw new Exception("Spotify förfrågan misslyckades: " + response.statusCode());
             }
         } catch (Exception e){
-            e.printStackTrace();
             return new ArrayList<>();
         }
     }
@@ -115,7 +114,6 @@ public class SpotifyService {
                 throw new Exception("Spotify förfrågan misslyckades: " + response.statusCode());
             }
         } catch (Exception e){
-            e.printStackTrace();
             return new ArrayList<>();
         }
     }
@@ -151,7 +149,6 @@ public class SpotifyService {
                 throw new Exception("Spotify API-förfrågan misslyckades med statuskod: " + response.statusCode());
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return new ArrayList<>(); // Returnerar en tom lista om något går fel
         }
     }
@@ -171,7 +168,6 @@ public class SpotifyService {
                 recommendations.add(trackName);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return new ArrayList<>();
         }
 
@@ -211,7 +207,6 @@ public class SpotifyService {
                 throw new Exception("spotify api-förfrågan misslyckades med statuskod: " + response.statusCode());
             }
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException("kunde inte hämta artist-s för: " + artistName, e);
         }
     }
@@ -246,7 +241,6 @@ public class SpotifyService {
                 throw new Exception("Spotify API-förfrågan misslyckades med statuskod: " + response.statusCode());
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return new ArrayList<>();
         }
     }
