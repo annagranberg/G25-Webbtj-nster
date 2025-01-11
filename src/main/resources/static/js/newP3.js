@@ -42,6 +42,8 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
         })
         .catch(error => {
             console.error("Det gick inte att hämta låtlista: " + error);
+            const playListContainer = document.getElementById("playList-container");
+            playListContainer.innerHTML = 'Det spelas ingen låt just nu'; // Töm container
         });
 });
 
@@ -54,35 +56,42 @@ function displayPlaylist(data) {
     if (data && data.playlist) {
         const playlist = data.playlist;
 
-        const previousSong = {
-            artist: playlist.previoussong.artist || "Okänd artist",
-            title: playlist.previoussong.title || "Okänd titel"
-        }
-
-        if(!data.song){
-            const currentSong = {
-                artist: playlist.song.artist || "Okänd artist",
-                title: playlist.song.title || "Okänd titel"
+        // Hantera föregående låt
+        const previousSong = playlist.previoussong
+            ? {
+                artist: playlist.previoussong.artist || "Okänd artist",
+                title: playlist.previoussong.title || "Okänd titel"
             }
+            : { artist: "Okänd artist", title: "Okänd titel" };
 
-            const currentSongHTML = document.createElement("p");
-            currentSongHTML.textContent = `Nuvarande låt: ${currentSong.title} av ${currentSong.artist}`;
-            playListContainer.appendChild(currentSongHTML);
-        } else {
-            const currentSongHtml = document.createElement("p");
-            currentSongHtml.textContent = 'Det spelas ingen låt just nu';
-            playListContainer.appendChild(currentSongHtml);
-        }
-
+        // Visa föregående låt
         const previousSongHTML = document.createElement("p");
         previousSongHTML.textContent = `Föregående låt: ${previousSong.title} av ${previousSong.artist}`;
         playListContainer.appendChild(previousSongHTML);
 
+        // Hantera aktuell låt
+        if (playlist.song) {
+            const currentSong = {
+                artist: playlist.song.artist || "Okänd artist",
+                title: playlist.song.title || "Okänd titel"
+            };
+
+            // Visa aktuell låt
+            const currentSongHTML = document.createElement("p");
+            currentSongHTML.textContent = `Nuvarande låt: ${currentSong.title} av ${currentSong.artist}`;
+            playListContainer.appendChild(currentSongHTML);
+        } else {
+            // Om det inte finns någon aktuell låt
+            const noCurrentSongHTML = document.createElement("p");
+            noCurrentSongHTML.textContent = "Det spelas ingen låt just nu.";
+            playListContainer.appendChild(noCurrentSongHTML);
+        }
     } else {
-        const currentSongHtml = document.createElement("p");
-        currentSongHtml.textContent = 'Det spelas ingen låt just nu';
-        playListContainer.appendChild(currentSongHtml);
-        console.error("Kunde inte hitta information om den aktuella låten.");
+        // Om `playlist` inte hittas
+        const noPlaylistHTML = document.createElement("p");
+        noPlaylistHTML.textContent = "Låtlistan kunde inte hämtas.";
+        playListContainer.appendChild(noPlaylistHTML);
+        console.error("Playlist saknas i API-svaret.");
     }
 }
 
@@ -92,7 +101,7 @@ async function startQuiz() {
     submitAnswer.style.display = "block";
 
     try {
-        const response = await fetch("http://localhost:5008/startQuiz", {
+        const response = await fetch("http://localhost:5008/startQuizP3", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -12,8 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class SpotifyService {
-    private final String clientId = "";
-    private final String clientSecret = "";
+    private final String clientId = "0dfbaadbec2b44ccbd420b22d5141ff3";
+    private final String clientSecret = "ebf1324bba0f464e80727e68f91549ce";
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     private String accessToken;

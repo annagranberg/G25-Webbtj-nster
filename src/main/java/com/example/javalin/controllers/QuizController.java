@@ -28,7 +28,28 @@ public class QuizController {
     }
     public Handler getStartQuiz = ctx -> {
         quiz = new Quiz();
-        String currentSong = srService.fetchCurrentSong("164");
+        String channelId;
+        String endpoint = ctx.path();
+        switch (endpoint) {
+            case "/startQuizP1":
+                channelId = "132";
+                break;
+            case "/startQuizP2":
+                channelId = "163";
+                break;
+            case "/startQuizP3":
+                channelId = "164";
+                break;
+            case "/startQuizP4":
+                channelId = "207";
+                break;
+            default:
+                ctx.result(gson.toJson(Map.of("Error", "Ogiltig endpoint")));
+                return;
+        }
+
+        String currentSong = srService.fetchCurrentSong(channelId);
+
 
         try {
             JSONObject obj = new JSONObject(currentSong);

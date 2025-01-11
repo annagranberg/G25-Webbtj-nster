@@ -14,16 +14,22 @@
             <img src="/images/P4img.jpg">
         </p>
     </section></main>
-<div class="container">
-    <button id="play-button">Hämta och Spela P4</button>
-    <audio id="P4-player" controls style="display: none;"></audio> <!-- Visa senaste spelade låt -->
-    <button id="playlist-button">Visa låt som spelas</button> <!-- Visa nuvarande spelad låt -->
-</div>
-<div class="playlistContainer">
-    <div class="previous-song"></div>
-    <div class="current-song"></div>
-    <script src="/js/P4.js"></script>
 
+<div class="container">
+    <button id="play-button">Hämta och spela P4</button>
+    <audio id="P4-player" controls style="display: none;"></audio>
+    <div id="quiz-container">
+        <div id="quiz-question"></div>
+        <form id="quiz-options"></form>
+        <button id="play-quiz">Spela vårt Quiz!</button>
+        <button id="submit-answer" style="display: none;">Skicka svar</button>
+        <button id="next-question" style="display: none">Nästa fråga</button>
+        <div id="quiz-feedback"></div>
+    </div>
+    <button id="no-Quiz">Visa låt istället (Quiz kommer inte kunna spelas om du klickar här)</button>
+    <div id="playList-container">
+
+    </div>
 </div>
 </body>
 </html>

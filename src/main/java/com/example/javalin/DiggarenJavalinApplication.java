@@ -9,8 +9,6 @@ import com.example.javalin.services.SpotifyService;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 
-import java.util.List;
-
 public class DiggarenJavalinApplication {
     public static void main(String[] args) {
         // Detta startar javalin-servern
@@ -40,16 +38,17 @@ public class DiggarenJavalinApplication {
         app.get("/P2.html", indexController.getP2);
         app.get("/P3.html", indexController.getP3);
         app.get("/P4.html", indexController.getP4);
-        app.get("/P3PlayList", srController.getP3PlayList);
-        app.get("/P3SongQuiz", srController.getCurrentSongForQuiz);
-       // app.get("/P3SpotifySongs", spotifyController.getSpotifyService().getRecommendations(srService.fetchCurrentSong()));
-        app.get("/P3SpotifySongs", ctx -> {
-            // Hämta den aktuella låtlistan från Sveriges Radio
-            String srResponse = srService.fetchCurrentSong("164");
-            ctx.json(srResponse);
-        });
 
-        // @todo: skapa endpoint för att starta quiz.
-        app.post("/startQuiz", quizController.getStartQuiz);
+        // för att visa låt som spelas + föregående låt
+        app.get("/P1PlayList", srController.getPlaylist);
+        app.get("/P2PlayList", srController.getPlaylist);
+        app.get("/P3PlayList", srController.getPlaylist);
+        app.get("/P4PlayList", srController.getPlaylist);
+
+        // för att starta quiz
+        app.post("/startQuizP1", quizController.getStartQuiz);
+        app.post("/startQuizP2", quizController.getStartQuiz);
+        app.post("/startQuizP3", quizController.getStartQuiz);
+        app.post("/startQuizP4", quizController.getStartQuiz);
     }
 }
