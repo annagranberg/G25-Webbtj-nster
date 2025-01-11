@@ -4,13 +4,10 @@ import com.example.javalin.controllers.Index;
 import com.example.javalin.controllers.QuizController;
 import com.example.javalin.controllers.SRController;
 import com.example.javalin.controllers.SpotifyController;
-import com.example.javalin.models.Quiz;
 import com.example.javalin.services.SRService;
 import com.example.javalin.services.SpotifyService;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
-import org.json.JSONObject;
-import org.json.XML;
 
 import java.util.List;
 
