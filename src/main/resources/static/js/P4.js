@@ -128,7 +128,7 @@ async function startQuiz() {
         console.log("Unika svar:", uniqueAnswer);
 
         if (uniqueAnswer.length <= 2) {
-            feedback.innerHTML = "Det fick inte att generera tillräckligt många unika svarsalternativ. Försök igen senare";
+            feedback.innerHTML = "Det gick inte att generera tillräckligt många unika svarsalternativ. Försök igen senare";
             playQuiz.style.display = "block";
             submitAnswer.style.display = "none";
             return;
