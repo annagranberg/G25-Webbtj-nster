@@ -151,6 +151,11 @@ nav ul li:hover .dropdown-content {
     transition: background-color 0.3s ease;
 }
 
+.bildstorlek {
+    width: 300px;
+    height: 250px;
+}
+
 #no-Quiz {
     width: 100%;
     padding: 10px;
