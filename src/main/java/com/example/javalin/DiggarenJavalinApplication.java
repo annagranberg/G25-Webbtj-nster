@@ -32,20 +32,20 @@ public class DiggarenJavalinApplication {
         // Quiz
         QuizController quizController = new QuizController(srService, spotifyService);
 
-        // Lägger till endpoints
         app.get("/", indexController.index); // Root endpoint
+        //Returnerar HTML-sidan för en specifik kanal
         app.get("/P1.html", indexController.getP1);
         app.get("/P2.html", indexController.getP2);
         app.get("/P3.html", indexController.getP3);
         app.get("/P4.html", indexController.getP4);
 
-        // för att visa låt som spelas + föregående låt
+        //För att visa låt som spelas + föregående låt
         app.get("/P1PlayList", srController.getPlaylist);
         app.get("/P2PlayList", srController.getPlaylist);
         app.get("/P3PlayList", srController.getPlaylist);
         app.get("/P4PlayList", srController.getPlaylist);
 
-        // för att starta quiz
+        //För att starta quiz
         app.post("/startQuizP1", quizController.getStartQuiz);
         app.post("/startQuizP2", quizController.getStartQuiz);
         app.post("/startQuizP3", quizController.getStartQuiz);
