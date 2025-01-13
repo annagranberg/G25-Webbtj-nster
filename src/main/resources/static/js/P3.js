@@ -33,9 +33,9 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
         .then(data => {
             console.log("api-data mottagen:" + data); //testar debug
             console.log("Raw response: " + data);
-            // Kontrollerar så att xmlDoc är korrekt
+
             if (data && data.playlist) {
-                displayPlaylist(data); // Skicka xmlDoc till displayPlaylist
+                displayPlaylist(data); 
             } else {
                 console.error("Kunde inte parsa XML.");
             }
