@@ -37,28 +37,4 @@ public class SRController {
         String currentSong = srService.fetchCurrentSong(channelId); // Hämtar data från service-klassen
         ctx.result(currentSong);
     };
-
-    public Handler getCurrentSongForQuiz = ctx -> {
-        String channelId;
-        String endpoint = ctx.path();
-        switch (endpoint) {
-            case "/P1Playlist":
-                channelId = "132";
-                break;
-            case "/P2Playlist":
-                channelId = "163";
-                break;
-            case "/P3Playlist":
-                channelId = "164";
-                break;
-            case "/P4Playlist":
-                channelId = "207";
-                break;
-            default:
-                return;
-        }
-
-        String currentSong = srService.fetchCurrentSong(channelId);
-        ctx.result(currentSong);
-    };
 }
