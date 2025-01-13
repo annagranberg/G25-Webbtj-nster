@@ -1,0 +1,14 @@
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/models/Answer.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/controllers/QuizController.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/models/Channel.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/models/Artist.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/services/SpotifyService.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/models/CurrentSong.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/models/Playlist.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/services/SRService.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/DiggarenJavalinApplication.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/models/Track.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/models/Quiz.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/controllers/SpotifyController.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/controllers/SRController.java
+/Users/jacobkatz/Documents/GitHub/G25-Webbtj-nster/src/main/java/com/example/javalin/controllers/Index.java

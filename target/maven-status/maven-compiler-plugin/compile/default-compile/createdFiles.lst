@@ -1,0 +1,14 @@
+com/example/javalin/models/CurrentSong.class
+com/example/javalin/models/Artist.class
+com/example/javalin/services/SpotifyService.class
+com/example/javalin/models/Track.class
+com/example/javalin/models/Playlist.class
+com/example/javalin/controllers/Index.class
+com/example/javalin/models/Channel.class
+com/example/javalin/controllers/QuizController.class
+com/example/javalin/DiggarenJavalinApplication.class
+com/example/javalin/models/Quiz.class
+com/example/javalin/controllers/SRController.class
+com/example/javalin/services/SRService.class
+com/example/javalin/models/Answer.class
+com/example/javalin/controllers/SpotifyController.class
