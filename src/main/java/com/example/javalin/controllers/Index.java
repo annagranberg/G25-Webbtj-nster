@@ -27,7 +27,7 @@ public class Index {
             ctx.contentType("text/html");
             ctx.result(htmlContent);
         }catch (Exception e) {
-            ctx.status(404).result("File Not Found");
+            ctx.status(500).result("File Not Found");
         }
     };
 
@@ -37,7 +37,7 @@ public class Index {
             ctx.contentType("text/html");
             ctx.result(htmlContent);
         } catch (IOException e) {
-            ctx.status(404).result("File not found");
+            ctx.status(500).result("File not found");
         }
     };
 
@@ -47,7 +47,7 @@ public class Index {
             ctx.contentType("text/html");
             ctx.result(htmlContent);
         }catch (IOException e) {
-            ctx.status(404).result("File not found");
+            ctx.status(500).result("File not found");
         }
     };
 
@@ -57,7 +57,7 @@ public class Index {
             ctx.contentType("text/html");
             ctx.result(htmlContent);
         } catch (IOException e) {
-            ctx.status(404).result("File not found");
+            ctx.status(500).result("File not found");
         }
     };
 
@@ -67,7 +67,7 @@ public class Index {
             ctx.contentType("text/html");
             ctx.result(htmlContent);
         } catch (IOException e) {
-            ctx.status(404).result("File not found");
+            ctx.status(500).result("File not found");
         }
     };
 }
