@@ -28,7 +28,8 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
     playQuiz.style.display = "none";
     document.getElementById("quiz-container").style.display = "none";
 
-    fetch("http://localhost:5008/P2PlayList")
+    let channelId = 2; // Exempel på channelId
+    fetch(`http://localhost:5008/channels/${channelId}`)
         .then(response => response.json())
         .then(data => {
             console.log("api-data mottagen:" + data); //testar debug

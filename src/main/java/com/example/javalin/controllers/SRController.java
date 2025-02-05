@@ -19,16 +19,16 @@ public class SRController {
         String channelId;
         String endpoint = ctx.path();
         switch (endpoint) {
-            case "/P1Playlist":
+            case "/channels/1/playlist":
                 channelId = "132";
                 break;
-            case "/P2PlayList":
+            case "/channels/2/playlist":
                 channelId = "163";
                 break;
-            case "/P3PlayList":
+            case "/channels/3/playlist":
                 channelId = "164";
                 break;
-            case "/P4PlayList":
+            case "/channels/4/playlist":
                 channelId = "207";
                 break;
             default:

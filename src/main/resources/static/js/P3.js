@@ -101,7 +101,7 @@ async function startQuiz() {
     submitAnswer.style.display = "block";
 
     try {
-        const response = await fetch("http://localhost:5008/startQuizP3", {
+        const response = await fetch("http://localhost:5008/channels/3/quiz", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

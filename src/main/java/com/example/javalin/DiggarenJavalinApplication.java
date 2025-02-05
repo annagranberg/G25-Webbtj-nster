@@ -32,30 +32,42 @@ public class DiggarenJavalinApplication {
         // Quiz
         QuizController quizController = new QuizController(srService, spotifyService);
 
-        app.get("/", indexController.index); // Root endpoint
-        //Returnerar HTML-sidan för en specifik kanal
-        /*switch ()
-        String channelId = "här kommer vi behöva switch sats";
-        String idRoute = String.format("/channels/%s", channelId);
-        app.get(idRoute, indexController.)*/
+        app.get("/", indexController.index); // route
 
-        app.get("/channels", indexController.getChannels);
+        app.get("/channels", indexController.getChannels); // route
 
-        app.get("/channels/p1", indexController.getP1);
-        app.get("/channels/p2", indexController.getP2);
-        app.get("/channels/p3", indexController.getP3);
-        app.get("/channels/p4", indexController.getP4);
+        app.get("/channels/{channelId}", ctx -> { //routes
+            String channelId = ctx.pathParam("channelId");
+            System.out.println(channelId);
+            switch (channelId) {
+                case "1":
+                    indexController.getP1.handle(ctx);
+                    break;
+                case "2":
+                    indexController.getP2.handle(ctx);
+                    break;
+                case "3":
+                    indexController.getP3.handle(ctx);
+                    break;
+                case "4":
+                    indexController.getP4.handle(ctx);
+                    break;
+                default:
+                    ctx.status(404).result("Channel not found");
+                    break;
+            }
+        });
 
-        //För att visa låt som spelas + föregående låt
-        app.get("/P1PlayList", srController.getPlaylist);
-        app.get("/P2PlayList", srController.getPlaylist);
-        app.get("/P3PlayList", srController.getPlaylist);
-        app.get("/P4PlayList", srController.getPlaylist);
+        //ENDPOINT
+        app.get("/channels/{channelId}/playlist", ctx -> {
+            srController.getPlaylist.handle(ctx);
 
-        //För att starta quiz
-        app.post("/startQuizP1", quizController.getStartQuiz);
-        app.post("/startQuizP2", quizController.getStartQuiz);
-        app.post("/startQuizP3", quizController.getStartQuiz);
-        app.post("/startQuizP4", quizController.getStartQuiz);
+        });
+
+        //ENDPOINT
+        app.post("/channels/{channelId}/quiz", ctx -> {
+            quizController.getStartQuiz.handle(ctx);
+        });
+
     }
 }

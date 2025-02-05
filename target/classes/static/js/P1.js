@@ -28,7 +28,7 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
     playQuiz.style.display = "none";
     document.getElementById("quiz-container").style.display = "none";
 
-    fetch("http://localhost:5008/P1PlayList")
+    fetch("http://localhost:5008/channels/1/playlist")
         .then(response => response.json())
         .then(data => {
             console.log("api-data mottagen:" + data); //testar debug
@@ -98,7 +98,7 @@ async function startQuiz() {
     submitAnswer.style.display = "block";
 
     try {
-        const response = await fetch("http://localhost:5008/startQuizP1", {
+        const response = await fetch("http://localhost:5008/channels/1/quiz", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -197,7 +197,7 @@ function shuffleArray(array) {
 document.getElementById("next-question").addEventListener("click", function () {
     console.log("Next question-knappen klickades");
 
-    fetch("http://localhost:5008/P1PlayList")
+    fetch("http://localhost:5008/channels/1/playlist")
         .then(response => response.json())
         .then(data => {
             const newSong = data.playlist?.song?.title || null;

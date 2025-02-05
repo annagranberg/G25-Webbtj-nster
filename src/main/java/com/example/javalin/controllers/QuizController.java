@@ -28,23 +28,23 @@ public class QuizController {
     }
     public Handler getStartQuiz = ctx -> {
         quiz = new Quiz();
-        String channelId;
-        String endpoint = ctx.path();
-        switch (endpoint) {
-            case "/startQuizP1":
+        String channelId = ctx.pathParam("channelId"); // Hämtar channelId från URL
+
+        switch (channelId) {
+            case "1":
                 channelId = "132";
                 break;
-            case "/startQuizP2":
+            case "2":
                 channelId = "163";
                 break;
-            case "/startQuizP3":
+            case "3":
                 channelId = "164";
                 break;
-            case "/startQuizP4":
+            case "4":
                 channelId = "207";
                 break;
             default:
-                ctx.result(gson.toJson(Map.of("Error", "Ogiltig endpoint")));
+                ctx.result(gson.toJson(Map.of("Error", "Ogiltig kanal")));
                 return;
         }
 
