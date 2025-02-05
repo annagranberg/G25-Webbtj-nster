@@ -42,6 +42,16 @@ public class Index {
         }
     };
 
+   /* public Handler getChannels = ctx -> {
+        try {
+            String htmlContent = loadHtmlFromResource("templates/channels.html");
+            ctx.contentType("text/html");
+            ctx.result(htmlContent);
+        } catch (IOException e) {
+            ctx.status(500).result("File not found");
+        }
+    };*/
+
     public Handler getP1 = ctx -> {
         try {
             String htmlContent = loadHtmlFromResource("templates/P1.html");
