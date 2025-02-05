@@ -21,6 +21,16 @@ public class Index {
         }
     }
 
+    public Handler getChannels = ctx -> {
+        try {
+            String htmlContent = loadHtmlFromResource(ctx.pathParam("templates/Channels.html"));
+            ctx.contentType("text/html");
+            ctx.result(htmlContent);
+        }catch (Exception e){
+            ctx.status(500).result(e.getMessage());
+        }
+    };
+
     public Handler index = ctx -> {
         try {
             String htmlContent = loadHtmlFromResource("templates/homePage.html");

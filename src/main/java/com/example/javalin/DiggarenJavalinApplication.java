@@ -34,6 +34,8 @@ public class DiggarenJavalinApplication {
 
         app.get("/", indexController.index); // Root endpoint
         //Returnerar HTML-sidan för en specifik kanal
+
+        app.get("/channels", indexController.getChannels);
         app.get("/P1.html", indexController.getP1);
         app.get("/P2.html", indexController.getP2);
         app.get("/P3.html", indexController.getP3);
