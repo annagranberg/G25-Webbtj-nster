@@ -34,6 +34,10 @@ public class DiggarenJavalinApplication {
 
         app.get("/", indexController.index); // Root endpoint
         //Returnerar HTML-sidan för en specifik kanal
+        /*switch ()
+        String channelId = "här kommer vi behöva switch sats";
+        String idRoute = String.format("/channels/%s", channelId);
+        app.get(idRoute, indexController.)*/
 
         app.get("/channels", indexController.getChannels);
 
