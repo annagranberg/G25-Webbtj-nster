@@ -36,10 +36,11 @@ public class DiggarenJavalinApplication {
         //Returnerar HTML-sidan för en specifik kanal
 
         app.get("/channels", indexController.getChannels);
-        app.get("/P1.html", indexController.getP1);
-        app.get("/P2.html", indexController.getP2);
-        app.get("/P3.html", indexController.getP3);
-        app.get("/P4.html", indexController.getP4);
+
+        app.get("/channels/p1", indexController.getP1);
+        app.get("/channels/p2", indexController.getP2);
+        app.get("/channels/p3", indexController.getP3);
+        app.get("/channels/p4", indexController.getP4);
 
         //För att visa låt som spelas + föregående låt
         app.get("/P1PlayList", srController.getPlaylist);

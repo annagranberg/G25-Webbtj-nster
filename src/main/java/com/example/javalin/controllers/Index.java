@@ -23,13 +23,14 @@ public class Index {
 
     public Handler getChannels = ctx -> {
         try {
-            String htmlContent = loadHtmlFromResource(ctx.pathParam("templates/Channels.html"));
+            String htmlContent = loadHtmlFromResource("templates/Channels.html");
             ctx.contentType("text/html");
             ctx.result(htmlContent);
-        }catch (Exception e){
-            ctx.status(500).result(e.getMessage());
+        } catch (Exception e) {
+            ctx.status(500).result("File not found: " + e.getMessage());
         }
     };
+
 
     public Handler index = ctx -> {
         try {

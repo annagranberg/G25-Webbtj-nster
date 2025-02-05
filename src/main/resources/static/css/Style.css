@@ -171,6 +171,14 @@ nav ul li:hover .dropdown-content {
     text-align: center;
 }
 
-#quiz-feedback{
-
+#homepageText{
+    text-align: center;
 }
+
+#channelButtons{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+

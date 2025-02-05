@@ -6,3 +6,4 @@ document.addEventListener("DOMContentLoaded", function (){
             document.querySelector('body').insertAdjacentHTML('afterbegin', html);
         });
 });
+
