@@ -2,6 +2,8 @@ package com.example.javalin.services;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import com.example.javalin.models.CurrentSong;
@@ -13,9 +15,11 @@ public class SRService {
     private final String SRurl = "https://api.sr.se/api/v2/playlists/rightnow?channelid=";
     private final String srUrlEnd = "&format=json&indent=true";
     private CurrentSong currentSong;
+    private LocalDateTime dateAndTime;
 
     public String fetchCurrentSong(String channelId) {
         StringBuilder response = new StringBuilder();
+        dateAndTime = LocalDateTime.now();
         try {
             URL url = new URL(this.SRurl + channelId + srUrlEnd);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -32,18 +36,45 @@ public class SRService {
 
                 // Konvertera den råa XML-strängen till JSON
                 JSONObject jsonResponse = XML.toJSONObject(response.toString());
+                if (jsonResponse.getJSONObject("playlist").has("previoussong")) {
+                    JSONObject previousSong = jsonResponse.getJSONObject("playlist").getJSONObject("previoussong");
 
-                String title = jsonResponse.getJSONObject("playlist")
-                        .getJSONObject("song")
-                        .getString("title");
-                String artist = jsonResponse.getJSONObject("playlist")
-                        .getJSONObject("song")
-                        .getString("artist");
+                    String previousTitle = previousSong.getString("title");
+                    String previousArtist = previousSong.getString("artist");
+                    String previousStartTime = previousSong.getString("starttimeutc");
+                    String previousEndTime = previousSong.getString("stoptimeutc");
 
-                this.currentSong = new CurrentSong(title, artist);
-            } else {
-                response.append("Gick inte att hämta data. Response code: ").append(responseCode);
+                    // Om du behöver göra något med previoussong...
+                } else if(jsonResponse.getJSONObject("playlist").has("song")){
+                    String title = jsonResponse.getJSONObject("playlist")
+                            .getJSONObject("song")
+                            .getString("title");
+                    String artist = jsonResponse.getJSONObject("playlist")
+                            .getJSONObject("song")
+                            .getString("artist");
+
+                    String startTime = jsonResponse.getJSONObject("starttimeutc")
+                            .getJSONObject("date").getString("value");
+
+                    String endTime = jsonResponse.getJSONObject("stoptimeutc")
+                            .getJSONObject("date").getString("value");
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+                    LocalDateTime startDateTime = LocalDateTime.parse(startTime, formatter);
+                    LocalDateTime endDateTime = LocalDateTime.parse(endTime, formatter);
+
+                    LocalDateTime oneMinuteAgo = LocalDateTime.now().minusSeconds(52); // det är 52 sekunder mellan vår mp3 och den verkliga radion.
+                    if(oneMinuteAgo.isAfter(startDateTime) && oneMinuteAgo.isBefore(endDateTime)) {
+                        this.currentSong = new CurrentSong(title, artist);
+                    } else {
+                        System.out.println("Låten har inte börjat spela ännu");
+                    }
+                } else {
+                    response.append("Gick inte att hämta data. Response code: ").append(responseCode);
+                }
             }
+
+
         } catch (Exception e) {
             //response.append("Ett fel inträffade vid inhämtning av data: ").append(e.getMessage());
         }
