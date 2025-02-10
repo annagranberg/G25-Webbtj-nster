@@ -15,11 +15,12 @@ public class SRService {
     private final String SRurl = "https://api.sr.se/api/v2/playlists/rightnow?channelid=";
     private final String srUrlEnd = "&format=json&indent=true";
     private CurrentSong currentSong;
-    private LocalDateTime dateAndTime;
 
     public String fetchCurrentSong(String channelId) {
         StringBuilder response = new StringBuilder();
-        dateAndTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        LocalDateTime oneMinuteAgo = LocalDateTime.now().minusSeconds(52);
+
         try {
             URL url = new URL(this.SRurl + channelId + srUrlEnd);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -44,37 +45,39 @@ public class SRService {
                     String previousStartTime = previousSong.getString("starttimeutc");
                     String previousEndTime = previousSong.getString("stoptimeutc");
 
-                    // Om du behöver göra något med previoussong...
-                } else if(jsonResponse.getJSONObject("playlist").has("song")){
-                    String title = jsonResponse.getJSONObject("playlist")
-                            .getJSONObject("song")
-                            .getString("title");
-                    String artist = jsonResponse.getJSONObject("playlist")
-                            .getJSONObject("song")
-                            .getString("artist");
-
-                    String startTime = jsonResponse.getJSONObject("starttimeutc")
-                            .getJSONObject("date").getString("value");
-
-                    String endTime = jsonResponse.getJSONObject("stoptimeutc")
-                            .getJSONObject("date").getString("value");
-
-                    DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-                    LocalDateTime startDateTime = LocalDateTime.parse(startTime, formatter);
-                    LocalDateTime endDateTime = LocalDateTime.parse(endTime, formatter);
-
-                    LocalDateTime oneMinuteAgo = LocalDateTime.now().minusSeconds(52); // det är 52 sekunder mellan vår mp3 och den verkliga radion.
+                    LocalDateTime startDateTime = LocalDateTime.parse(previousStartTime, formatter);
+                    LocalDateTime endDateTime = LocalDateTime.parse(previousEndTime, formatter);
                     if(oneMinuteAgo.isAfter(startDateTime) && oneMinuteAgo.isBefore(endDateTime)) {
-                        this.currentSong = new CurrentSong(title, artist);
+                        this.currentSong = new CurrentSong(previousTitle, previousArtist);
                     } else {
                         System.out.println("Låten har inte börjat spela ännu");
                     }
-                } else {
-                    response.append("Gick inte att hämta data. Response code: ").append(responseCode);
                 }
+
+                String title = jsonResponse.getJSONObject("playlist")
+                        .getJSONObject("song")
+                        .getString("title");
+                String artist = jsonResponse.getJSONObject("playlist")
+                        .getJSONObject("song")
+                        .getString("artist");
+
+                String startTime = jsonResponse.getJSONObject("starttimeutc")
+                        .getJSONObject("date").getString("value");
+
+                String endTime = jsonResponse.getJSONObject("stoptimeutc")
+                        .getJSONObject("date").getString("value");
+
+                LocalDateTime startDateTime = LocalDateTime.parse(startTime, formatter);
+                LocalDateTime endDateTime = LocalDateTime.parse(endTime, formatter);
+
+                if(oneMinuteAgo.isAfter(startDateTime) && oneMinuteAgo.isBefore(endDateTime)) {
+                    this.currentSong = new CurrentSong(title, artist);
+                } else {
+                    System.out.println("Låten har inte börjat spela ännu");
+                }
+            } else {
+                response.append("Gick inte att hämta data. Response code: ").append(responseCode);
             }
-
-
         } catch (Exception e) {
             //response.append("Ett fel inträffade vid inhämtning av data: ").append(e.getMessage());
         }
