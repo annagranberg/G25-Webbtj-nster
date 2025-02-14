@@ -73,7 +73,7 @@ public class SpotifyService {
                 //kontrollerar om items-arrayen innehåller objekt
                 JSONArray items = responseJson.getJSONObject("tracks").getJSONArray("items");
                 if (items.length() == 0) {
-                    throw new Exception(("Inga låtar hittades i Spotify-svaret"));
+                    throw new Exception(("No songs found in Spotify response"));
                 }
 
                 //hämta album-id från det första objektet
@@ -82,7 +82,7 @@ public class SpotifyService {
                 //hämta låt fr album
                 return getTracksFromAlbum(albumId);
             } else {
-                throw new Exception("Spotify förfrågan misslyckades: " + response.statusCode());
+                throw new Exception("Spotify request failed: " + response.statusCode());
             }
         } catch (Exception e){
             return new ArrayList<>();
@@ -111,7 +111,7 @@ public class SpotifyService {
                 }
                 return similarSongs;
             } else{
-                throw new Exception("Spotify förfrågan misslyckades: " + response.statusCode());
+                throw new Exception("Spotify request failed: " + response.statusCode());
             }
         } catch (Exception e){
             return new ArrayList<>();
@@ -146,7 +146,7 @@ public class SpotifyService {
             if (response.statusCode() == 200) {
                 return parseSimilarSongs(response.body());
             } else {
-                throw new Exception("Spotify API-förfrågan misslyckades med statuskod: " + response.statusCode());
+                throw new Exception("Spotify API request failed with status code: " + response.statusCode());
             }
         } catch (Exception e) {
             return new ArrayList<>(); // Returnerar en tom lista om något går fel
@@ -186,8 +186,6 @@ public class SpotifyService {
             String encodedArtistName = URLEncoder.encode(artistName, StandardCharsets.UTF_8);
             String url = String.format("https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg" + encodedArtistName);
 
-            System.out.println("skickar förfrågan för att hämta artist-id" + url);
-
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Authorization", "Bearer " + accessToken)
@@ -201,13 +199,13 @@ public class SpotifyService {
                 if (artists.length() > 0) {
                     return artists.getJSONObject(0).getString("is");
             } else {
-                throw new Exception("Ingen artist hittades med namnet" + response.statusCode());
+                throw new Exception("No artist found with the name: " + response.statusCode());
             }
         } else {
-                throw new Exception("spotify api-förfrågan misslyckades med statuskod: " + response.statusCode());
+                throw new Exception("spotify api request failed with status code: " + response.statusCode());
             }
         } catch (Exception e) {
-            throw new RuntimeException("kunde inte hämta artist-s för: " + artistName, e);
+            throw new RuntimeException("could not retrieve artists for: " + artistName, e);
         }
     }
 
@@ -222,13 +220,13 @@ public class SpotifyService {
 
             String artistId = getArtistId(artistName);
             if (artistId == null) {
-                throw new Exception("kunde inte hämta artist-id för: " + artistName);
+                throw new Exception("could not retrieve artist ID for: " + artistName);
             }
             //String encodedArtistName = URLEncoder.encode(artistName, StandardCharsets.UTF_8);
 
             String url = String.format("https://api.spotify.com/v1/artists/%s/top-tracks?market=SE", artistId);
 
-            System.out.println("Skicka förfrågan till spotify api: " + url);
+            System.out.println("Send request to spotify api: " + url);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Authorization", "Bearer " + accessToken)
@@ -238,7 +236,7 @@ public class SpotifyService {
             if (response.statusCode() == 200) {
                 return parseArtistSongs(response.body());
             } else {
-                throw new Exception("Spotify API-förfrågan misslyckades med statuskod: " + response.statusCode());
+                throw new Exception("Spotify API request failed with status code: " + response.statusCode());
             }
         } catch (Exception e) {
             return new ArrayList<>();

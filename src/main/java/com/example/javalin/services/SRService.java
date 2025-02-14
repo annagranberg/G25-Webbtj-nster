@@ -16,7 +16,7 @@ public class SRService {
     private final String srUrlEnd = "&format=json&indent=true";
     private CurrentSong currentSong;
 
-    public String fetchCurrentSong(String channelId) {
+    public String fetchCurrentSong(String channelId) { // för att hämta låtarna till /quiz
         StringBuilder response = new StringBuilder();
         DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
         LocalDateTime oneMinuteAgo = LocalDateTime.now().minusSeconds(52);
@@ -35,7 +35,6 @@ public class SRService {
                 }
                 scanner.close();
 
-                // Konvertera den råa XML-strängen till JSON
                 JSONObject jsonResponse = XML.toJSONObject(response.toString());
                 if (jsonResponse.getJSONObject("playlist").has("previoussong")) {
                     JSONObject previousSong = jsonResponse.getJSONObject("playlist").getJSONObject("previoussong");
@@ -75,6 +74,42 @@ public class SRService {
                 } else {
                     System.out.println("Låten har inte börjat spela ännu");
                 }
+            } else {
+                response.append("Gick inte att hämta data. Response code: ").append(responseCode);
+            }
+        } catch (Exception e) {
+            //response.append("Ett fel inträffade vid inhämtning av data: ").append(e.getMessage());
+        }
+
+        return response.toString();
+    }
+
+    public String fetchCurrentSongForPlaylist(String channelId) { // för att hämta låtarna till /playlist
+        StringBuilder response = new StringBuilder();
+        try {
+            URL url = new URL(this.SRurl + channelId + srUrlEnd);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.connect();
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == 200) {
+                Scanner scanner = new Scanner(url.openStream());
+                while (scanner.hasNext()) {
+                    response.append(scanner.nextLine());
+                }
+                scanner.close();
+
+                JSONObject jsonResponse = XML.toJSONObject(response.toString());
+
+                String title = jsonResponse.getJSONObject("playlist")
+                        .getJSONObject("song")
+                        .getString("title");
+                String artist = jsonResponse.getJSONObject("playlist")
+                        .getJSONObject("song")
+                        .getString("artist");
+
+                this.currentSong = new CurrentSong(title, artist);
             } else {
                 response.append("Gick inte att hämta data. Response code: ").append(responseCode);
             }

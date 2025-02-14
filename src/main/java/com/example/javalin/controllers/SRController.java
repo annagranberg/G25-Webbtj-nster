@@ -34,7 +34,7 @@ public class SRController {
             default:
                 return;
         }
-        String currentSong = srService.fetchCurrentSong(channelId); // Hämtar data från service-klassen
+        String currentSong = srService.fetchCurrentSongForPlaylist(channelId); // Hämtar data från service-klassen
         ctx.result(currentSong);
     };
 }
