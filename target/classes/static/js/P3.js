@@ -28,7 +28,7 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
     playQuiz.style.display = "none";
     document.getElementById("quiz-container").style.display = "none";
 
-    fetch("http://localhost:5008/P3PlayList")
+    fetch("http://localhost:5008/channels/3/playlist")
         .then(response => response.json())
         .then(data => {
             console.log("api-data mottagen:" + data); //testar debug
