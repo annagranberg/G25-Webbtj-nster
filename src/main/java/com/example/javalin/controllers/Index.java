@@ -31,6 +31,15 @@ public class Index {
         }
     };
 
+    public Handler api = ctx -> {
+        try{
+            String htmlContent = loadHtmlFromResource("templates/apiDocumentation.html");
+            ctx.contentType("text/html");
+            ctx.result(htmlContent);
+        }catch (Exception e){
+            ctx.status(500).result("File not found: " + e.getMessage());
+        }
+    };
 
     public Handler index = ctx -> {
         try {

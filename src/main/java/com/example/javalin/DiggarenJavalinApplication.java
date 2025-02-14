@@ -33,6 +33,7 @@ public class DiggarenJavalinApplication {
         QuizController quizController = new QuizController(srService, spotifyService);
 
         app.get("/", indexController.index); // route
+        app.get("/api", indexController.api);
 
         app.get("/channels", indexController.getChannels); // route
 
