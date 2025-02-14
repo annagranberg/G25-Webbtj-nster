@@ -30,9 +30,28 @@ public class SRService {
                 }
                 scanner.close();
 
-                // Konvertera den råa XML-strängen till JSON
-                JSONObject jsonResponse = XML.toJSONObject(response.toString());
+                // Konvertera den råa XML-strängen till JSON - vi behöver inte konvertera från XML...
+                JSONObject jsonResponse = new JSONObject(response.toString());
 
+                JSONObject playlist = jsonResponse.getJSONObject("playlist");
+                if (!playlist.has("song")) {
+                    return null;
+                }
+
+                String title = playlist.getJSONObject("song").getString("title");
+                String artist = playlist.getJSONObject("song").getString("artist");
+
+                String startTimeRaw = playlist.getJSONObject("song").optString("starttimeutc", "N/A");
+
+                long startTimeMillis = 0;
+                if (!startTimeRaw.equals("N/A")) {
+                    startTimeMillis = Long.parseLong(startTimeRaw.replaceAll("[0-9]", ""));
+
+                    System.out.println("Nuvarande låt: " + title + "av " + artist + " Starttid (millisek): " + startTimeMillis);
+                } else {
+                    System.out.println("Ingen starttid tillgänglig.");
+                }
+                /*
                 String title = jsonResponse.getJSONObject("playlist")
                         .getJSONObject("song")
                         .getString("title");
@@ -40,7 +59,9 @@ public class SRService {
                         .getJSONObject("song")
                         .getString("artist");
 
-                this.currentSong = new CurrentSong(title, artist);
+
+                 */
+                this.currentSong = new CurrentSong(title, artist, startTimeMillis);
             } else {
                 response.append("Gick inte att hämta data. Response code: ").append(responseCode);
             }

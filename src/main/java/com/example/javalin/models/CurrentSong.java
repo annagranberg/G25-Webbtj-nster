@@ -1,13 +1,16 @@
 package com.example.javalin.models;
 
 public class CurrentSong {
-    public String title;
+    private String title;
     public String artist;
+    private long startTime; //variabel för en låts starttid i millisekunder
     public Quiz quiz;
 
-    public CurrentSong(String title, String artist) {
+
+    public CurrentSong(String title, String artist, long startTime) {
         this.title = title;
         this.artist = artist;
+        this.startTime = startTime;
     }
 
     public String getTitle() {
@@ -24,6 +27,10 @@ public class CurrentSong {
 
     public void setArtist(String artist) {
         this.artist = artist;
+    }
+
+    public long getStartTime() {
+        return startTime;
     }
 
     @Override
