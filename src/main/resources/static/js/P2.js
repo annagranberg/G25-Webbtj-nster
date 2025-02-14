@@ -29,7 +29,7 @@ document.getElementById("no-Quiz").addEventListener("click", function () {
     document.getElementById("quiz-container").style.display = "none";
 
     let channelId = 2; // Exempel på channelId
-    fetch(`http://localhost:5008/channels/${channelId}`)
+    fetch("http://localhost:5008/channels/2/playlist")
         .then(response => response.json())
         .then(data => {
             console.log("api-data mottagen:" + data); //testar debug
