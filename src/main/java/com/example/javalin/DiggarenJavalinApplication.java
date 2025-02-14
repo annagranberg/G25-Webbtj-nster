@@ -65,7 +65,7 @@ public class DiggarenJavalinApplication {
         });
 
         //ENDPOINT
-        app.post("/channels/{channelId}/quiz", ctx -> {
+        app.get("/channels/{channelId}/quiz", ctx -> {
             quizController.getStartQuiz.handle(ctx);
         });
 

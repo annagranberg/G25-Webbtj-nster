@@ -98,8 +98,8 @@ async function startQuiz() {
     submitAnswer.style.display = "block";
 
     try {
-        const response = await fetch("http://localhost:5008/startQuizP4", {
-            method: "POST",
+        const response = await fetch("http://localhost:5008/channels/4/quiz", {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }

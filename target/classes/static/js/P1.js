@@ -99,7 +99,7 @@ async function startQuiz() {
 
     try {
         const response = await fetch("http://localhost:5008/channels/1/quiz", {
-            method: "POST",
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
