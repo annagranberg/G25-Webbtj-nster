@@ -104,7 +104,15 @@ public class QuizController {
                 result.put("Answers", answers);
                 ctx.result(gson.toJson(result));
             } else {
-                ctx.result(gson.toJson(Map.of("Error", "Det gick inte att hitta tillräckligt med låtar för quizet.")));
+                Map<String, Object> result = new HashMap<>();
+                String song1 = "Idas Sommarvisa";
+                String song2 = "Här kommer Pippi Långstrump";
+                answers.add(new Answer(song1, false));
+                answers.add(new Answer(song2, false));
+                result.put("Question", "Vad heter låten?");
+                result.put("Answers", answers);
+                ctx.result(gson.toJson(result));
+                //ctx.result(gson.toJson(Map.of("Error", "Det gick inte att hitta tillräckligt med låtar för quizet.")));
             }
         } catch (Exception e) {
             ctx.result(gson.toJson(Map.of("Error", "Ett fel inträffade vid bearbetning av API-svaret: " + e.getMessage())));
