@@ -38,7 +38,6 @@ public class SRService {
                 JSONObject jsonResponse = XML.toJSONObject(response.toString());
                 if (jsonResponse.getJSONObject("playlist").has("previoussong")) {
                     JSONObject previousSong = jsonResponse.getJSONObject("playlist").getJSONObject("previoussong");
-
                     String previousTitle = previousSong.getString("title");
                     String previousArtist = previousSong.getString("artist");
                     String previousStartTime = previousSong.getString("starttimeutc");
@@ -49,7 +48,7 @@ public class SRService {
                     if(oneMinuteAgo.isAfter(startDateTime) && oneMinuteAgo.isBefore(endDateTime)) {
                         this.currentSong = new CurrentSong(previousTitle, previousArtist);
                     } else {
-                        System.out.println("Låten har inte börjat spela ännu");
+                        System.out.println("The current song has not started yet");
                     }
                 }
 
@@ -72,10 +71,10 @@ public class SRService {
                 if(oneMinuteAgo.isAfter(startDateTime) && oneMinuteAgo.isBefore(endDateTime)) {
                     this.currentSong = new CurrentSong(title, artist);
                 } else {
-                    System.out.println("Låten har inte börjat spela ännu");
+                    System.out.println("The current song has not started yet");
                 }
             } else {
-                response.append("Gick inte att hämta data. Response code: ").append(responseCode);
+                response.append("Failed to retrieve data. Response code: ").append(responseCode);
             }
         } catch (Exception e) {
             //response.append("Ett fel inträffade vid inhämtning av data: ").append(e.getMessage());
@@ -111,7 +110,7 @@ public class SRService {
 
                 this.currentSong = new CurrentSong(title, artist);
             } else {
-                response.append("Gick inte att hämta data. Response code: ").append(responseCode);
+                response.append("Failed to retrieve data. Response code: ").append(responseCode);
             }
         } catch (Exception e) {
             //response.append("Ett fel inträffade vid inhämtning av data: ").append(e.getMessage());

@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 import io.javalin.http.Handler;
 import com.google.gson.Gson;
 import org.json.JSONObject;
-
+import static java.nio.charset.StandardCharsets.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
