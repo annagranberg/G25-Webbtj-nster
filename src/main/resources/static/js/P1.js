@@ -12,35 +12,35 @@ document.getElementById("play-button").addEventListener("click", function() {
     playButton.style.display = "none";
     audioElement.style.display = "block";
     audioElement.play()
-        .then(() => console.log("Spelar ljudströmmen"))
-        .catch(error => console.error("Fel vid uppspelning:", error));
+        .then(() => console.log("Plays the audio stream"))
+        .catch(error => console.error("Error while playing:", error));
 });
 
 
 document.getElementById("play-quiz").addEventListener("click", function () {
-    console.log("Play quiz knappen klickades");
+    console.log("The play quiz button was clicked");
     startQuiz();
 });
 
 // ny metod för att hämta SR låtlista via vårt egna API
 document.getElementById("no-Quiz").addEventListener("click", function () {
-    console.log("Knappen klickades");
+    console.log("The button was clicked");
     playQuiz.style.display = "none";
     document.getElementById("quiz-container").style.display = "none";
 
     fetch("http://localhost:5008/channels/1/playlist")
         .then(response => response.json())
         .then(data => {
-            console.log("api-data mottagen:" + data); //testar debug
+            console.log("api-data received:" + data); //testar debug
             console.log("Raw response: " + data);
             if (data && data.playlist) {
                 displayPlaylist(data);
             } else {
-                console.error("Kunde inte parsa XML.");
+                console.error("Failed to parse XML.");
             }
         })
         .catch(error => {
-            console.error("Det gick inte att hämta låtlista: " + error);
+            console.error("Unable to load playlist: " + error);
         });
 });
 
@@ -48,7 +48,7 @@ function displayPlaylist(data) {
     const playListContainer = document.getElementById("playList-container");
     playListContainer.innerHTML = ''; // Töm container
 
-    console.log("Vi är i displayPlaylist");
+    console.log("We are in displayPlaylist");
 
     if (data && data.playlist) {
         const playlist = data.playlist;
@@ -56,39 +56,39 @@ function displayPlaylist(data) {
         // Hantera föregående låt
         const previousSong = playlist.previoussong
             ? {
-                artist: playlist.previoussong.artist || "Okänd artist",
-                title: playlist.previoussong.title || "Okänd titel"
+                artist: playlist.previoussong.artist || "Unknown artist",
+                title: playlist.previoussong.title || "Unknown title"
             }
-            : { artist: "Okänd artist", title: "Okänd titel" };
+            : { artist: "Unknown artist", title: "Unknown title" };
 
         // Visa föregående låt
         const previousSongHTML = document.createElement("p");
-        previousSongHTML.textContent = `Föregående låt: ${previousSong.title} av ${previousSong.artist}`;
+        previousSongHTML.textContent = `Previous song: ${previousSong.title} av ${previousSong.artist}`;
         playListContainer.appendChild(previousSongHTML);
 
         // Hantera aktuell låt
         if (playlist.song) {
             const currentSong = {
-                artist: playlist.song.artist || "Okänd artist",
-                title: playlist.song.title || "Okänd titel"
+                artist: playlist.song.artist || "Unknown artist",
+                title: playlist.song.title || "Unknown title"
             };
 
             // Visa aktuell låt
             const currentSongHTML = document.createElement("p");
-            currentSongHTML.textContent = `Nuvarande låt: ${currentSong.title} av ${currentSong.artist}`;
+            currentSongHTML.textContent = `Current song: ${currentSong.title} av ${currentSong.artist}`;
             playListContainer.appendChild(currentSongHTML);
         } else {
             // Om det inte finns någon aktuell låt
             const noCurrentSongHTML = document.createElement("p");
-            noCurrentSongHTML.textContent = "Det spelas ingen låt just nu.";
+            noCurrentSongHTML.textContent = "There is no song playing right now.";
             playListContainer.appendChild(noCurrentSongHTML);
         }
     } else {
         // Om `playlist` inte hittas
         const noPlaylistHTML = document.createElement("p");
-        noPlaylistHTML.textContent = "Låtlistan kunde inte hämtas.";
+        noPlaylistHTML.textContent = "The playlist could not be loaded.";
         playListContainer.appendChild(noPlaylistHTML);
-        console.error("Playlist saknas i API-svaret.");
+        console.error("Playlist is missing in the API response.");
     }
 }
 
@@ -106,10 +106,10 @@ async function startQuiz() {
         });
 
         const responseText = await response.json();
-        console.log("Mottagen API-data:", responseText);
+        console.log("Received API-data:", responseText);
 
         if (!responseText.Answers || responseText.Answers.length === 0) {
-            throw new Error("Inga svarsalternativ mottogs. Förmodligen för att det inte spelas någon låt.");
+            throw new Error("No response options received. Probably because no song is playing.");
         }
 
         const quizQuestion = responseText.Question;
@@ -125,17 +125,17 @@ async function startQuiz() {
             }
         });
 
-        console.log("Unika svar:", uniqueAnswer);
+        console.log("Unique answers:", uniqueAnswer);
 
         if (uniqueAnswer.length <= 2) {
-            feedback.innerHTML = "Det fick inte att generera tillräckligt många unika svarsalternativ. Försök igen senare";
+            feedback.innerHTML = "It failed to generate enough unique response options. Try again later.";
             playQuiz.style.display = "block";
             submitAnswer.style.display = "none";
             return;
         }
 
         const limitedAnswers = shuffleArray(uniqueAnswer).slice(0, 5);
-        console.log("Begränsade och blandade svar:", limitedAnswers);
+        console.log("Limited and mixed responses:", limitedAnswers);
 
         //blanda alternativen
         const correctAnswer = limitedAnswers.find(answer => answer.CORRECT === true);
@@ -160,17 +160,17 @@ async function startQuiz() {
             feedback.innerHTML = "";
 
             if (!selectedOption) {
-                feedback.innerHTML = "Du måste välja ett alternativ!";
+                feedback.innerHTML = "You have to choose one alternative!";
                 return;
             }
 
             const selectedAnswer = selectedOption.value;
-            console.log("Valt svar:", selectedAnswer);
+            console.log("Selected answer:", selectedAnswer);
 
             if (selectedAnswer === correctAnswer.TEXT) {
-                feedback.innerHTML = "Rätt svar! 🎉";
+                feedback.innerHTML = "Correct Answer! 🎉";
             } else {
-                feedback.innerHTML = "Fel svar ☹️";
+                feedback.innerHTML = "Wrong Answer ☹️";
             }
 
             submitAnswer.style.display = "none";
@@ -178,8 +178,8 @@ async function startQuiz() {
         };
 
     } catch (error) {
-        console.error("Det gick inte att starta quiz:", error);
-        feedback.innerHTML = "Det går inte att spela quiz just nu, försök igen när en låt spelas!";
+        console.error("Unable to start quiz:", error);
+        feedback.innerHTML = "It is not possible to play quiz right now, Try again when a song is playing!";
         playQuiz.style.display = "block";
         submitAnswer.style.display = "none";
     }
@@ -195,7 +195,7 @@ function shuffleArray(array) {
 }
 
 document.getElementById("next-question").addEventListener("click", function () {
-    console.log("Next question-knappen klickades");
+    console.log("Next question-button was clicked!");
 
     fetch("http://localhost:5008/channels/1/playlist")
         .then(response => response.json())
@@ -204,7 +204,7 @@ document.getElementById("next-question").addEventListener("click", function () {
 
             if (!newSong) {
                 // Ingen låt spelas
-                feedback.innerHTML = "Ingen låt spelas just nu, luta dig tillbaka och vänta på nästa låt för att spela quizet snart igen.";
+                feedback.innerHTML = "No song is currently playing, sit back and wait for the next song to play the quiz again soon.";
                 submitAnswer.style.display = "none";
                 nextQuestion.style.display = "block";
                 return;
@@ -212,7 +212,7 @@ document.getElementById("next-question").addEventListener("click", function () {
 
             if (newSong === currentSong) {
                 // Samma låt spelas
-                feedback.innerHTML = "Du kan inte spela quiz förrän nästa låt.";
+                feedback.innerHTML = "You cannot play the quiz until the next song is playing!.";
                 submitAnswer.style.display = "none";
                 nextQuestion.style.display = "block";
                 return;
@@ -221,11 +221,12 @@ document.getElementById("next-question").addEventListener("click", function () {
             // Ny låt spelas
             currentSong = newSong;
             feedback.innerHTML = ""; // Rensa tidigare feedback
-            console.log("Ny låt hittad:", currentSong);
+            console.log("New song found:", currentSong);
             startQuiz(); // Starta quiz med den nya låten
         })
         .catch(error => {
-            console.error("Fel vid hämtning av låt:", error);
-            feedback.innerHTML = "Det gick inte att hämta aktuell låt. Försök igen senare.";
+            console.error("Error loading song:", error);
+            feedback.innerHTML = "The current song could not be found. Try again later.";
         });
 });
+
