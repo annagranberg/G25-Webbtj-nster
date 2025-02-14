@@ -1,207 +1,225 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Diggaren MusikQuiz</title>
+<head>
+    <title>Webbtjänster_G25 API</title>
     <style type="text/css">
-      body {
-      	font-family: Trebuchet MS, sans-serif;
-      	font-size: 15px;
-      	color: #444;
-      	margin-right: 24px;
-      }
-      
-      h1	{
-      	font-size: 25px;
-      }
-      h2	{
-      	font-size: 20px;
-      }
-      h3	{
-      	font-size: 16px;
-      	font-weight: bold;
-      }
-      hr	{
-      	height: 1px;
-      	border: 0;
-      	color: #ddd;
-      	background-color: #ddd;
-      }
-      
-      .app-desc {
-        clear: both;
-        margin-left: 20px;
-      }
-      .param-name {
-        width: 100%;
-      }
-      .license-info {
-        margin-left: 20px;
-      }
-      
-      .license-url {
-        margin-left: 20px;
-      }
-      
-      .model {
-        margin: 0 0 0px 20px;
-      }
-      
-      .method {
-        margin-left: 20px;
-      }
-      
-      .method-notes	{
-      	margin: 10px 0 20px 0;
-      	font-size: 90%;
-      	color: #555;
-      }
-      
-      pre {
-        padding: 10px;
-        margin-bottom: 2px;
-      }
-      
-      .http-method {
-       text-transform: uppercase;
-      }
-      
-      pre.get {
-        background-color: #0f6ab4;
-      }
-      
-      pre.post {
-        background-color: #10a54a;
-      }
-      
-      pre.put {
-        background-color: #c5862b;
-      }
-      
-      pre.delete {
-        background-color: #a41e22;
-      }
-      
-      .huge	{
-      	color: #fff;
-      }
-      
-      pre.example {
-        background-color: #f3f3f3;
-        padding: 10px;
-        border: 1px solid #ddd;
-      }
-      
-      code {
-        white-space: pre;
-      }
-      
-      .nickname {
-        font-weight: bold;
-      }
-      
-      .method-path {
-        font-size: 1.5em;
-        background-color: #0f6ab4;
-      }
-      
-      .up {
-        float:right;
-      }
-      
-      .parameter {
-        width: 500px;
-      }
-      
-      .param {
-        width: 500px;
-        padding: 10px 0 0 20px;
-        font-weight: bold;
-      }
-      
-      .param-desc {
-        width: 700px;
-        padding: 0 0 0 20px;
-        color: #777;
-      }
-      
-      .param-type {
-        font-style: italic;
-      }
-      
-      .param-enum-header {
-      width: 700px;
-      padding: 0 0 0 60px;
-      color: #777;
-      font-weight: bold;
-      }
-      
-      .param-enum {
-      width: 700px;
-      padding: 0 0 0 80px;
-      color: #777;
-      font-style: italic;
-      }
-      
-      .field-label {
-        padding: 0;
-        margin: 0;
-        clear: both;
-      }
-      
-      .field-items	{
-      	padding: 0 0 15px 0;
-      	margin-bottom: 15px;
-      }
-      
-      .return-type {
-        clear: both;
-        padding-bottom: 10px;
-      }
-      
-      .param-header {
-        font-weight: bold;
-      }
-      
-      .method-tags {
-        text-align: right;
-      }
-      
-      .method-tag {
-        background: none repeat scroll 0% 0% #24A600;
-        border-radius: 3px;
-        padding: 2px 10px;
-        margin: 2px;
-        color: #FFF;
-        display: inline-block;
-        text-decoration: none;
-      }
+        body {
+            font-family: Trebuchet MS, sans-serif;
+            font-size: 15px;
+            color: #444;
+            margin-right: 24px;
+        }
+
+        h1	{
+            font-size: 25px;
+        }
+        h2	{
+            font-size: 20px;
+        }
+        h3	{
+            font-size: 16px;
+            font-weight: bold;
+        }
+        hr	{
+            height: 1px;
+            border: 0;
+            color: #ddd;
+            background-color: #ddd;
+        }
+
+        .app-desc {
+            clear: both;
+            margin-left: 20px;
+        }
+        .param-name {
+            width: 100%;
+        }
+        .license-info {
+            margin-left: 20px;
+        }
+
+        .license-url {
+            margin-left: 20px;
+        }
+
+        .model {
+            margin: 0 0 0px 20px;
+        }
+
+        .method {
+            margin-left: 20px;
+        }
+
+        .method-notes	{
+            margin: 10px 0 20px 0;
+            font-size: 90%;
+            color: #555;
+        }
+
+        pre {
+            padding: 10px;
+            margin-bottom: 2px;
+        }
+
+        .http-method {
+            text-transform: uppercase;
+        }
+
+        pre.example {
+            background-color: #f3f3f3;
+            padding: 10px;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace;
+        }
+        pre.get {
+            background-color: #0f6ab4;
+        }
+
+        pre.post {
+            background-color: #10a54a;
+        }
+
+        pre.put {
+            background-color: #c5862b;
+        }
+
+        pre.delete {
+            background-color: #a41e22;
+        }
+
+        .huge	{
+            color: #fff;
+        }
+
+        pre.example {
+            background-color: #f3f3f3;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        code {
+            white-space: pre;
+        }
+
+        .nickname {
+            font-weight: bold;
+        }
+
+        .method-path {
+            font-size: 1.5em;
+            background-color: #0f6ab4;
+        }
+
+        .up {
+            float:right;
+        }
+
+        .parameter {
+            width: 500px;
+        }
+
+        .param {
+            width: 500px;
+            padding: 10px 0 0 20px;
+            font-weight: bold;
+        }
+
+        .param-desc {
+            width: 700px;
+            padding: 0 0 0 20px;
+            color: #777;
+        }
+
+        .param-type {
+            font-style: italic;
+        }
+
+        .param-enum-header {
+            width: 700px;
+            padding: 0 0 0 60px;
+            color: #777;
+            font-weight: bold;
+        }
+
+        .param-enum {
+            width: 700px;
+            padding: 0 0 0 80px;
+            color: #777;
+            font-style: italic;
+        }
+
+        .field-label {
+            padding: 0;
+            margin: 0;
+            clear: both;
+        }
+
+        .field-items	{
+            padding: 0 0 15px 0;
+            margin-bottom: 15px;
+        }
+
+        .return-type {
+            clear: both;
+            padding-bottom: 10px;
+        }
+
+        .param-header {
+            font-weight: bold;
+        }
+
+        .method-tags {
+            text-align: right;
+        }
+
+        .method-tag {
+            background: none repeat scroll 0% 0% #24A600;
+            border-radius: 3px;
+            padding: 2px 10px;
+            margin: 2px;
+            color: #FFF;
+            display: inline-block;
+            text-decoration: none;
+        }
     </style>
-  </head>
-  <body>
-  <h1>Diggaren MusikQuiz</h1>
-  <h2>API-beskrivning</h2> 
-  <p>
-    Diggaren MusikQuiz är en interaktiv webbtjänst som är utvecklad för att erbjuda användare en unik uppelvelse genom att kombinera musikinnehåll från Sveriges Radio och Spotify.
-     API:et tillåter användare att delta i musikquiz baserat på aktuella låtar och artister från radiokanalerna P1, P2, P3 & P4.
-  </p>
-  <ul>
-  <li><a href="#getP4PlayList"><code><span class="http-method">get</span> /P4PlayList</code></a></li>
-  <li><a href="#getRoot"><code><span class="http-method">get</span> /</code></a></li>
-  <li><a href="#startQuizP1"><code><span class="http-method">post</span> /startQuizP1</code></a></li>
-  <li><a href="#startQuizP2"><code><span class="http-method">post</span> /startQuizP2</code></a></li>
-  <li><a href="#startQuizP3"><code><span class="http-method">post</span> /startQuizP3</code></a></li>
-  <li><a href="#startQuizP4"><code><span class="http-method">post</span> /startQuizP4</code></a></li>
-  </ul>
+</head>
+<body>
+<h1>Webbtjänster_G25 API</h1>
+<div class="app-desc">This is a simple API that returns SR playlists and Spotify songs for a quiz.</div>
+<div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+<div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
+<div class="app-desc">Version: 1.0.0</div>
+<div class="app-desc">BasePath:/annagranberg-a8e/Webbtj-nster_G25/1.0.0</div>
+<div class="license-info">All rights reserved</div>
+<div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+<h2>Access</h2>
 
-  <h1><a name="Default">Default</a></h1>
-  <div class="method"><a name="getP1"></a>
+<h2><a name="__Methods">Methods</a></h2>
+[ Jump to <a href="#__Models">Models</a> ]
+
+<h3>Table of Contents </h3>
+<div class="method-summary"></div>
+<h4><a href="#Default">Default</a></h4>
+<ul>
+    <li><a href="#fetchCurrentSongForPlaylist"><code><span class="http-method">get</span> /channels/{channelid}/playlist</code></a></li>
+    <li><a href="#fetchQuizQuestion"><code><span class="http-method">get</span> /channels/{channelid}/quiz</code></a></li>
+</ul>
+
+<h1><a name="Default">Default</a></h1>
+<div class="method"><a name="fetchCurrentSongForPlaylist"></a>
     <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /P1.html</code></pre></div>
-    <div class="method-summary">Hämtar P1 sidan (<span class="nickname">getP1</span>)</div>
-    <div class="method-notes">Hämtar HTML-sidan för P1.</div>
+        <a class="up" href="#__Methods">Up</a>
+        <pre class="get"><code class="huge"><span class="http-method">get</span> /channels/{channelid}/playlist</code></pre></div>
+    <div class="method-summary">Searches for a playlist (<span class="nickname">fetchCurrentSongForPlaylist</span>)</div>
+    <div class="method-notes"></div>
 
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+        <div class="param">channelid (required)</div>
+
+        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the channel (1-4) </div>    </div>  <!-- field-items -->
 
 
 
@@ -210,382 +228,63 @@
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      
-      String
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"<html><body>P1 Innehåll</body></html>"</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>text/html</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    P1 HTML-sidan hämtad framgångsrikt
-        <a href="#String">String</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getP1PlayList"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /P1PlayList</code></pre></div>
-    <div class="method-summary">Hämtar P1:s spellista (<span class="nickname">getP1PlayList</span>)</div>
-    <div class="method-notes">Hämtar aktuell spellista från Sveriges Radio P1.</div>
-
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#inline_response_200_1">inline_response_200_1</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "songs" : [ {
-    "duration" : "3:45",
-    "artist" : "Artist Name",
-    "title" : "Song Title"
-  }, {
-    "duration" : "3:45",
-    "artist" : "Artist Name",
-    "title" : "Song Title"
-  } ]
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    Spellista hämtad framgångsrikt
-        <a href="#inline_response_200_1">inline_response_200_1</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getP2"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /P2.html</code></pre></div>
-    <div class="method-summary">Hämtar P2 sidan (<span class="nickname">getP2</span>)</div>
-    <div class="method-notes">Hämtar HTML-sidan för P2.</div>
-
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      
-      String
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"<html><body>P2 Innehåll</body></html>"</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>text/html</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    P2 HTML-sidan hämtad framgångsrikt
-        <a href="#String">String</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getP2PlayList"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /P2PlayList</code></pre></div>
-    <div class="method-summary">Hämtar P2:s spellista (<span class="nickname">getP2PlayList</span>)</div>
-    <div class="method-notes">Hämtar aktuell spellista från Sveriges Radio P2.</div>
-
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#inline_response_200_1">inline_response_200_1</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "songs" : [ {
-    "duration" : "3:45",
-    "artist" : "Artist Name",
-    "title" : "Song Title"
-  }, {
-    "duration" : "3:45",
-    "artist" : "Artist Name",
-    "title" : "Song Title"
-  } ]
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    Spellista hämtad framgångsrikt
-        <a href="#inline_response_200_1">inline_response_200_1</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getP3"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /P3.html</code></pre></div>
-    <div class="method-summary">Hämtar P3 sidan (<span class="nickname">getP3</span>)</div>
-    <div class="method-notes">Hämtar HTML-sidan för P3.</div>
-
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      
-      String
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"<html><body>P3 Innehåll</body></html>"</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>text/html</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    P3 HTML-sidan hämtad framgångsrikt
-        <a href="#String">String</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getP3PlayList"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /P3PlayList</code></pre></div>
-    <div class="method-summary">Hämtar P3:s spellista (<span class="nickname">getP3PlayList</span>)</div>
-    <div class="method-notes">Hämtar aktuell spellista från Sveriges Radio P3.</div>
-
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#inline_response_200_1">inline_response_200_1</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "songs" : [ {
-    "duration" : "3:45",
-    "artist" : "Artist Name",
-    "title" : "Song Title"
-  }, {
-    "duration" : "3:45",
-    "artist" : "Artist Name",
-    "title" : "Song Title"
-  } ]
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    Spellista hämtad framgångsrikt
-        <a href="#inline_response_200_1">inline_response_200_1</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getP4"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /P4.html</code></pre></div>
-    <div class="method-summary">Hämtar P4 sidan (<span class="nickname">getP4</span>)</div>
-    <div class="method-notes">Hämtar HTML-sidan för P4.</div>
-
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      
-      String
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>"<html><body>P4 Innehåll</body></html>"</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>text/html</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    P4 HTML-sidan hämtad framgångsrikt
-        <a href="#String">String</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getP4PlayList"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /P4PlayList</code></pre></div>
-    <div class="method-summary">Hämtar P4:s spellista (<span class="nickname">getP4PlayList</span>)</div>
-    <div class="method-notes">Hämtar aktuell spellista från Sveriges Radio P4.</div>
-
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#inline_response_200_1">inline_response_200_1</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "songs" : [ {
-    "duration" : "3:45",
-    "artist" : "Artist Name",
-    "title" : "Song Title"
-  }, {
-    "duration" : "3:45",
-    "artist" : "Artist Name",
-    "title" : "Song Title"
-  } ]
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    Spellista hämtad framgångsrikt
-        <a href="#inline_response_200_1">inline_response_200_1</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="getRoot"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /</code></pre></div>
-    <div class="method-summary">Huvudsida (<span class="nickname">getRoot</span>)</div>
-    <div class="method-notes">Hämtar startsidan för tjänsten.</div>
-
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#inline_response_200">inline_response_200</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "message" : "Välkommen till Sveriges Radio API!"
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    Startsidan hämtad framgångsrikt
         <a href="#inline_response_200">inline_response_200</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="startQuizP1"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /startQuizP1</code></pre></div>
-    <div class="method-summary">Startar quiz för P1 (<span class="nickname">startQuizP1</span>)</div>
-    <div class="method-notes">Startar ett nytt quiz baserat på aktuell låt eller kontext från P1.</div>
 
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "playlist" : {
+    "channel" : {
+      "name" : "name",
+      "id" : 0
+    },
+    "previoussong" : {
+      "albumname" : "albumname",
+      "artist" : "artist",
+      "composer" : "composer",
+      "recordlabel" : "recordlabel",
+      "starttimeutc" : "starttimeutc",
+      "stoptimeutc" : "stoptimeutc",
+      "description" : "description",
+      "producer" : "producer",
+      "title" : "title",
+      "conductor" : "conductor"
+    }
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+        <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Search results matching criteria
+    <a href="#inline_response_200">inline_response_200</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{&quot;playlist&quot;:{&quot;previoussong&quot;:{&quot;title&quot;:&quot;Nuevayol&quot;,&quot;description&quot;:&quot;Bad Bunny - Nuevayol&quot;,&quot;artist&quot;:&quot;Bad Bunny&quot;,&quot;composer&quot;:&quot;Benito A. Martinez Ocasio&quot;,&quot;conductor&quot;:&quot;&quot;,&quot;albumname&quot;:&quot;Debí Tirar Más Fotos&quot;,&quot;recordlabel&quot;:&quot;RIMAS ENTERTAINMENT LLC.&quot;,&quot;producer&quot;:&quot;&quot;,&quot;starttimeutc&quot;:&quot;/Date(1739539222000)/&quot;,&quot;stoptimeutc&quot;:&quot;/Date(1739539405000)/&quot;},&quot;channel&quot;:{&quot;id&quot;:164,&quot;name&quot;:&quot;P3&quot;}}}</code></pre>
+</div> <!-- method -->
+<hr/>
+<div class="method"><a name="fetchQuizQuestion"></a>
+    <div class="method-path">
+        <a class="up" href="#__Methods">Up</a>
+        <pre class="get"><code class="huge"><span class="http-method">get</span> /channels/{channelid}/quiz</code></pre></div>
+    <div class="method-summary">Retrieves a quiz question (<span class="nickname">fetchQuizQuestion</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+        <div class="param">channelid (required)</div>
+
+        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the channel (1-4) </div>    </div>  <!-- field-items -->
 
 
 
@@ -594,8 +293,8 @@
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      <a href="#inline_response_200_2">inline_response_200_2</a>
-      
+        <a href="#inline_response_200_1">inline_response_200_1</a>
+
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
@@ -603,223 +302,56 @@
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
     <pre class="example"><code>{
-  "message" : "P1 Quiz started successfully."
+  "Answers" : [ {
+    "CORRECT" : true,
+    "TEXT" : "TEXT"
+  }, {
+    "CORRECT" : true,
+    "TEXT" : "TEXT"
+  } ],
+  "Question" : "Question"
 }</code></pre>
 
     <h3 class="field-label">Produces</h3>
     This API call produces the following media types according to the <span class="header">Accept</span> request header;
     the media type will be conveyed by the <span class="header">Content-Type</span> response header.
     <ul>
-      <li><code>application/json</code></li>
+        <li><code>application/json</code></li>
     </ul>
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    P1 Quiz har startat framgångsrikt
-        <a href="#inline_response_200_2">inline_response_200_2</a>
-    <h4 class="field-label">400</h4>
-    Ogiltig förfrågan, kan bero på att quizet redan är igång eller saknas nödvändiga data.
-        <a href="#inline_response_400">inline_response_400</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="startQuizP2"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /startQuizP2</code></pre></div>
-    <div class="method-summary">Startar quiz för P2 (<span class="nickname">startQuizP2</span>)</div>
-    <div class="method-notes">Startar ett nytt quiz baserat på aktuell låt eller kontext från P2.</div>
-
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#inline_response_200_3">inline_response_200_3</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
+    A quiz question with multiple answers
+    <a href="#inline_response_200_1">inline_response_200_1</a>
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "message" : "P2 Quiz started successfully."
-}</code></pre>
+    <pre class="example"><code>{&quot;Question&quot;:&quot;What is the name of the song?&quot;,&quot;Answers&quot;:[{&quot;TEXT&quot;:&quot;Arm&#x27;s Length&quot;,&quot;CORRECT&quot;:true},{&quot;TEXT&quot;:&quot;People Watching&quot;,&quot;CORRECT&quot;:false},{&quot;TEXT&quot;:&quot;Wild Long Lie&quot;,&quot;CORRECT&quot;:false}]}</code></pre>
+</div> <!-- method -->
+<hr/>
 
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
+<h2><a name="__Models">Models</a></h2>
+[ Jump to <a href="#__Methods">Methods</a> ]
 
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    P2 Quiz har startat framgångsrikt
-        <a href="#inline_response_200_3">inline_response_200_3</a>
-    <h4 class="field-label">400</h4>
-    Ogiltig förfrågan, kan bero på att quizet redan är igång eller saknas nödvändiga data.
-        <a href="#inline_response_400">inline_response_400</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="startQuizP3"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /startQuizP3</code></pre></div>
-    <div class="method-summary">Startar quiz för P3 (<span class="nickname">startQuizP3</span>)</div>
-    <div class="method-notes">Startar ett nytt quiz baserat på aktuell låt eller kontext från P3.</div>
-
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#inline_response_200_4">inline_response_200_4</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "message" : "P3 Quiz started successfully."
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    P3 Quiz har startat framgångsrikt
-        <a href="#inline_response_200_4">inline_response_200_4</a>
-    <h4 class="field-label">400</h4>
-    Ogiltig förfrågan, kan bero på att quizet redan är igång eller saknas nödvändiga data.
-        <a href="#inline_response_400">inline_response_400</a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="startQuizP4"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="post"><code class="huge"><span class="http-method">post</span> /startQuizP4</code></pre></div>
-    <div class="method-summary">Startar quiz för P4 (<span class="nickname">startQuizP4</span>)</div>
-    <div class="method-notes">Startar ett nytt quiz baserat på aktuell låt eller kontext från P4.</div>
-
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#inline_response_200_5">inline_response_200_5</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "message" : "P4 Quiz started successfully."
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    P4 Quiz har startat framgångsrikt
-        <a href="#inline_response_200_5">inline_response_200_5</a>
-    <h4 class="field-label">400</h4>
-    Ogiltig förfrågan, kan bero på att quizet redan är igång eller saknas nödvändiga data.
-        <a href="#inline_response_400">inline_response_400</a>
-  </div> <!-- method -->
-  <hr/>
-
-  <h2><a name="__Models">Models</a></h2>
-  [ Jump to <a href="#__Methods">Methods</a> ]
-
-  <h3>Table of Contents</h3>
-  <ol>
+<h3>Table of Contents</h3>
+<ol>
     <li><a href="#inline_response_200"><code>inline_response_200</code></a></li>
     <li><a href="#inline_response_200_1"><code>inline_response_200_1</code></a></li>
-    <li><a href="#inline_response_200_2"><code>inline_response_200_2</code></a></li>
-    <li><a href="#inline_response_200_3"><code>inline_response_200_3</code></a></li>
-    <li><a href="#inline_response_200_4"><code>inline_response_200_4</code></a></li>
-    <li><a href="#inline_response_200_5"><code>inline_response_200_5</code></a></li>
-    <li><a href="#inline_response_400"><code>inline_response_400</code></a></li>
-  </ol>
+</ol>
 
-  <div class="model">
+<div class="model">
     <h3><a name="inline_response_200"><code>inline_response_200</code></a> <a class="up" href="#__Models">Up</a></h3>
-    
+
     <div class="field-items">
-      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: Välkommen till Sveriges Radio API!</span></div>
+        <div class="param">playlist (optional)</div><div class="param-desc"><span class="param-type"><a href="#object">Object</a></span>  </div>
     </div>  <!-- field-items -->
-  </div>
-  <div class="model">
+</div>
+<div class="model">
     <h3><a name="inline_response_200_1"><code>inline_response_200_1</code></a> <a class="up" href="#__Models">Up</a></h3>
-    
+
     <div class="field-items">
-      <div class="param">songs (optional)</div><div class="param-desc"><span class="param-type"><a href="#object">array[Object]</a></span>  </div>
+        <div class="param">Question (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param">Answers (optional)</div><div class="param-desc"><span class="param-type"><a href="#object">array[Object]</a></span>  </div>
     </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="inline_response_200_2"><code>inline_response_200_2</code></a> <a class="up" href="#__Models">Up</a></h3>
-    
-    <div class="field-items">
-      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: P1 Quiz started successfully.</span></div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="inline_response_200_3"><code>inline_response_200_3</code></a> <a class="up" href="#__Models">Up</a></h3>
-    
-    <div class="field-items">
-      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: P2 Quiz started successfully.</span></div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="inline_response_200_4"><code>inline_response_200_4</code></a> <a class="up" href="#__Models">Up</a></h3>
-    
-    <div class="field-items">
-      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: P3 Quiz started successfully.</span></div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="inline_response_200_5"><code>inline_response_200_5</code></a> <a class="up" href="#__Models">Up</a></h3>
-    
-    <div class="field-items">
-      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: P4 Quiz started successfully.</span></div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="inline_response_400"><code>inline_response_400</code></a> <a class="up" href="#__Models">Up</a></h3>
-    
-    <div class="field-items">
-      <div class="param">error (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: Quiz is already in progress or missing required data.</span></div>
-    </div>  <!-- field-items -->
-  </div>
-  </body>
+</div>
+</body>
 </html>
