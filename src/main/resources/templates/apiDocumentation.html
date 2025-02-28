@@ -77,13 +77,18 @@
         }
 
         pre.example {
-            background-color: #f3f3f3;
+            background-color: #f4f4f4;
             padding: 10px;
-            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap; /* Bevarar radbrytning */
+            font-family: monospace;
+            font-size: 14px;
         }
 
-        code {
-            white-space: pre;
+        pre.example code {
+            white-space: pre-wrap; /* Säkerställer att JSON behåller radbrytning */
+            display: block;
         }
 
         .nickname {
