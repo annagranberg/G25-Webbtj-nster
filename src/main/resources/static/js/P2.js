@@ -132,7 +132,7 @@ async function startQuiz() {
 
         console.log("Unique svar:", uniqueAnswer);
 
-        if (uniqueAnswer.length <= 2) {
+        if (uniqueAnswer.length < 2) {
             feedback.innerHTML = "Could not generate enough unique answers options.Try again later";
             playQuiz.style.display = "block";
             submitAnswer.style.display = "none";

@@ -96,7 +96,7 @@ public class QuizController {
             }
 
             ArrayList<Answer> answers = quiz.getAnswers();
-            if (answers.size() > 1) {
+            if (answers.size() > 2) {
                 Map<String, Object> result = new HashMap<>();
                 result.put("Question", "What is the name of the song?");
                 result.put("Answers", answers);
