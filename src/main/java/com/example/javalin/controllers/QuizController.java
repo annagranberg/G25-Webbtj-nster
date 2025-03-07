@@ -76,13 +76,17 @@ public class QuizController {
             // Lägg till fler svarsalternativ
             ArrayList<String> songsFromSameAlbum = spotifyService.getSongsFromSameAlbum(currentSong);
             for (String text : songsFromSameAlbum) {
-                quiz.addAnswer(new Answer(text, false));
+                if (!text.equals(correctAnswer.getText())) {
+                    quiz.addAnswer(new Answer(text, false));
+                }
             }
 
             if (quiz.getAnswers().size() < 3) {
                 ArrayList<String> artistSongs = spotifyService.getArtistSongs(currentSong);
                 for (String text : artistSongs) {
-                    quiz.addAnswer(new Answer(text, false));
+                    if (!text.equals(correctAnswer.getText())) {
+                        quiz.addAnswer(new Answer(text, false));
+                    }
                 }
             }
 
@@ -104,7 +108,7 @@ public class QuizController {
             } else {
                 Map<String, Object> result = new HashMap<>();
                 String song1 = "Ida summer song";
-                String song2 = "Pippi Longstocking ";
+                String song2 = "Pippi Longstocking";
                 answers.add(new Answer(song1, false));
                 answers.add(new Answer(song2, false));
                 result.put("Question", "What is the name of the song?");
