@@ -122,11 +122,20 @@ async function startQuiz() {
 
         console.log("Unika svar:", uniqueAnswer);
 
+        //lägger till hårdkodade alternativ när det finns färre än 2 unika svar
         if (uniqueAnswer.length < 2) {
-            feedback.innerHTML = "Could not generate enough unique answer choices. Please try again later.";
-            playQuiz.style.display = "block";
-            submitAnswer.style.display = "none";
-            return;
+            console.warn("Not enough unique answers, adding hardcoded options");
+
+            const hardcodedAnswers = [
+                {TEXT: "Ida summer song", CORRECT: false},
+                {TEXT: "Pippi Longstocking", CORRECT: false},
+                {TEXT: "Bä bä vita lamm", CORRECT: false}
+            ];
+
+            //lägg till hårdkodade alternativ tills vi har minst 3 alternativ
+            while (uniqueAnswer.length < 3 && hardcodedAnswers.length > 0) {
+                uniqueAnswer.push(hardcodedAnswers.shift());
+            }
         }
 
         const limitedAnswers = shuffleArray(uniqueAnswer).slice(0, 5);
