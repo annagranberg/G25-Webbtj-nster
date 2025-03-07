@@ -84,7 +84,7 @@ function displayPlaylist(data) {
         } else {
             // Om det inte finns någon aktuell låt
             const noCurrentSongHTML = document.createElement("p");
-            noCurrentSongHTML.textContent = "There is no song plying at the moment";
+            noCurrentSongHTML.textContent = "There is no song playing at the moment";
             playListContainer.appendChild(noCurrentSongHTML);
         }
     } else {
@@ -132,11 +132,19 @@ async function startQuiz() {
 
         console.log("Unique svar:", uniqueAnswer);
 
-        if (uniqueAnswer.length <= 2) {
-            feedback.innerHTML = "Could not generate enough unique answers options.Try again later";
-            playQuiz.style.display = "block";
-            submitAnswer.style.display = "none";
-            return;
+        if (uniqueAnswer.length < 2) {
+
+            console.warn("Not enough unique answers, adding hardcoded options");
+
+            const hardcodedAnswers = [
+                { TEXT: "Ida summer song", CORRECT: false},
+                { TEXT: "Pippi Longstocking", CORRECT: false},
+                { TEXT: "Bä bä vita lamm", CORRECT: false }
+            ];
+
+            while (uniqueAnswer.length < 3 && hardcodedAnswers.length > 0) {
+                uniqueAnswer.push(hardcodedAnswers.shift());
+            }
         }
 
         const limitedAnswers = shuffleArray(uniqueAnswer).slice(0, 5);
